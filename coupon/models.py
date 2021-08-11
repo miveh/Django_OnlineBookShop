@@ -7,8 +7,27 @@ class CashCoupon(models.Model):
     code = models.CharField(max_length=30, unique=True)
     valid_from = models.DateTimeField()
     valid_to = models.DateTimeField()
-    discount = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
+    discount = models.BigIntegerField()
     active = models.BooleanField(default=False)
 
     def __str__(self):
         return self.code
+
+
+class PercentCoupon(models.Model):
+    code = models.CharField(max_length=30, unique=True)
+    valid_from = models.DateTimeField()
+    valid_to = models.DateTimeField()
+    discount = models.IntegerField(max_length=2)
+    active = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.code
+
+
+class PercentCouponForCart(models.Model):
+    code = models.CharField(max_length=30, unique=True)
+    valid_from = models.DateTimeField()
+    valid_to = models.DateTimeField()
+    discount = models.IntegerField(max_length=2)
+    active = models.BooleanField(default=False)
