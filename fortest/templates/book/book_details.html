@@ -1,0 +1,34 @@
+{% extends '_base.html' %}
+{% block content %}
+    {#    {% for category in object.category.all %}#}
+    {#        {{ category }}#}
+    {#    {% endfor %}#}
+    {##}
+    {#    {{ object.created }}#}
+    {#    {{ object.price }}#}
+    {##}
+    {#    {{ object.author }}#}
+    {#    {{ object.name }}#}
+    {#    <img src={{object.image.url}} alt="{{item.image.url}}" class="img-thumbnail">#}
+    {#    {% if object.stock == 0 %}#}
+    {#        <p>اتمام موجودی</p>#}
+    {#    {% endif %}#}
+
+    <div class="card" style="width: 18rem;">
+        <div class="row">
+            <img class="card-img-top col-6" src="{{ object.image.url }}" alt="Card image cap">
+            <div class="card-body col-6">
+                <h5 class="card-title">{{ object.name }}</h5>
+                <p class="card-text">{{ object.description }}</p>
+                {% if object.stock %}
+                    <a href="{{ object.get_add_to_cart_url }}" class="btn btn-primary">افزودن به سبد
+                    خرید</a>{{ object.price }}
+                {% else %}
+                    <h4>ناموجود</h4>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

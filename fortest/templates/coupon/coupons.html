@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+
+    {% endblock %}
+</head>
+<body>
+    <a href="{% url 'cashcoupons' %}">تخفیف نقدی برای کتاب</a><br>
+    <a href="">تخفیف درصدی برای کتاب</a><br>
+    <a href="">تخفیف درصدی برای سبد خرید</a>
+    {% block content %}
+
+    {% endblock %}
+</body>
+</html>

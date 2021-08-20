@@ -1,0 +1,22 @@
+{% extends '_base.html' %}
+{% block content %}
+{#    {% for obj in object.book_set.all %}#}
+{#        <span class=" card card-body"><h6 style="color: #3CB371">Title:</h6><h6>{{ obj.name }}</h6></span>#}
+{#        <br>#}
+{#    {% endfor %}#}
+
+
+    <div class="row">
+        {% for book in object.book_set.all %}
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="{{ book.image.url }}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{ book.name }}-{{ book.price }}</h5>
+                    <p class="card-text">{{ obj.description }}</p>
+                    <a href="{% url 'bookdetail' book.slug %}" class="btn btn-primary">مشاهده جزئیات</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock content %}

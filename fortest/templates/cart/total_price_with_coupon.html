@@ -1,0 +1,10 @@
+{% extends 'cart/ordered.html' %}
+{% block total %}
+    {% if total_price_with_coupon %}
+        <input style="width: auto" id="1213" class="form-control-plaintext" type="text" readonly="readonly"
+               value="{{ total_price_with_coupon }}تومان">
+    {% else %}
+        <input style="width: auto" id="1213" class="form-control-plaintext" type="text" readonly="readonly"
+               value="{{ total_price_noncoupon }}تومان">
+    {% endif %}
+{% endblock total %}

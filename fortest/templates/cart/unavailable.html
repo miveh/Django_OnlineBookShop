@@ -1,0 +1,15 @@
+{% extends 'cart/cart.html' %}
+{% block alarm %}
+    <div class="card card-header">
+        <span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span>
+        {% if book %}
+            <h2>کتاب {{ book.name }} ناموجود شد و از سبد خرید شما حذف گردید.</h2>
+        {% elif order_list %}
+            <p>کتابهای:</p>
+            {% for order in order_list %}
+                {{ order.book.name }}
+            {% endfor %}
+            <p>ناموجود شدند و از لیست خرید شما حذف گردید.</p>
+        {% endif %}
+    </div>
+{% endblock alarm%}

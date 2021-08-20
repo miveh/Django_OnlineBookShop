@@ -1,0 +1,49 @@
+button{
+  border: none;
+}
+/*.center{*/
+/*  width: 150px;*/
+/*  margin: 40px auto;*/
+
+/*}*/
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+/*.container input{*/
+/*  width: 40px;*/
+/*  font-size: 20px;*/
+/*  margin: 0 10px !important ;*/
+/*  padding: 10px;*/
+/*  border: none;*/
+/*  outline: none;*/
+/*  border-radius: 10px;*/
+/*}*/
+/*.container input:hover {*/
+/*  background: #c9c0a6;*/
+/*  color: #fff;*/
+/*}*/
+
+/*.nice-number button{*/
+/*  background-color: rgba(145,155,159);*/
+/*  width: 40px;*/
+/*  border: none;*/
+/*  outline: none;*/
+/*  border-radius: 8px;*/
+/*  font-size: 20px;*/
+/*}*/
+/*button:hover{*/
+/*  background-color:orange;*/
+/*}*/
+
+/*button:focus{*/
+/*  background-color:red;*/
+/*}*/
+
