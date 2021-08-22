@@ -1,3 +1,4 @@
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
@@ -20,6 +21,7 @@ class CartView(ListView):
             total_price_cart += item.total_price
         context = super().get_context_data(**kwargs)
         context['cart'] = CartItems.objects.filter(cart__id=2, ordered='U')  # must be change
+        context['order'] = CartItems.objects.filter(cart__id=2, ordered='O')  # must be change
         context['total_price_cart'] = total_price_cart
 
         return context
@@ -69,7 +71,7 @@ class MyFactorsView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['factors'] = FinalizedOrders.objects.filter(cart__id=2)  # must be change
+        context['factors'] = FinalizedOrders.objects.filter(cart__id=2, payment=True)  # must be change
         return context
 
 
@@ -80,9 +82,12 @@ def add_to_cart(request, slug):
     # print(cart_item)
     if cart_qs.exists():
         cart_item = cart_qs[0]
+        if cart_item.book.stock <= cart_item.quantity:
+            pass
         # if CartItems.obj.filter(book__slug=book.slug).exists():
-        cart_item.quantity += 1
-        cart_item.save()
+        else:
+            cart_item.quantity += 1
+            cart_item.save()
     else:
         cart_item = CartItems.objects.create(book=book, ordered='U', cart=Cart.objects.filter(id=2)[0])
         cart_item.save()
@@ -101,13 +106,16 @@ def remove_from_cart(request, slug):
 
 
 def check_ordered(request, slug):
+    allowed = False
     book = get_object_or_404(Book, slug=slug)
     cart_qs = CartItems.objects.filter(book=book, ordered='U', cart=Cart.objects.filter(id=2)[0])  # must be change
     if cart_qs.exists():
         cart_item = cart_qs[0]
         if cart_item.book.stock == 0:
+            allowed = True
             cart_item.delete()
-            return render(request, 'cart/unavailable.html', {'book': book})
+            return render(request, 'cart/cart.html', {'book': book, 'allowed': allowed})
+
         else:
             is_ordered_item_qs = CartItems.objects.filter(book=book, ordered='O',
                                                           cart=Cart.objects.filter(id=2)[0])  # must be change
@@ -134,10 +142,15 @@ def check_unordered(request, slug):
     return redirect('orderedcart')
 
 
-def success(request):
+def create_factor(request):
+    context = {}
     order_list = []
     if request.method == 'POST':
         address_id = request.POST.get('address_select')
+        price = request.POST.get('price')
+        price = float(price)
+        price = int(price)
+        print(price, type(price))
         order_items = CartItems.objects.filter(cart__id=2,
                                                ordered='O')  # must be change ... ایتم های انتخاب شده برای خرید قطعی
         for order in order_items:
@@ -150,15 +163,21 @@ def success(request):
             # بیا فاکتور خرید و صادر کن
             finalized_obj = FinalizedOrders.objects.create(cart=Cart.objects.filter(id=2)[0]
                                                            , shipping_address=
-                                                           ShippingAddress.objects.filter(id=address_id)[0])
+                                                           ShippingAddress.objects.filter(id=address_id)[0],
+                                                           price=price)
             for item in order_items:  # بیا هر ایتم رو وضعیت سفارش رو به تمام شده تغییر بده.
-                item.book.stock = item.book.stock - item.quantity  # موجودی کتاب به اندازه ی تعداد سفارش کم میشه
-                item.book.save()
-                item.ordered = 'F'
-                item.save()
+                # item.book.stock = item.book.stock - item.quantity  # موجودی کتاب به اندازه ی تعداد سفارش کم میشه
+                # item.book.save()
+                # item.ordered = 'F'
+                # item.save()
                 finalized_obj.item.add(item)  # ایتم ها رو به فاکتور اضافه کن
             finalized_obj.save()
-            return render(request, 'cart/success.html')
+            finalized_obj_id = finalized_obj.id
+            context['price'] = price
+            context['finalized_obj_id'] = finalized_obj_id
+            context['finalized_obj'] = finalized_obj
+            print(context)
+            return render(request, 'cart/coupon.html', context)
 
         elif len(order_list) > 0:  # اگر کتابی ناموجود بود
             for order in order_list:
@@ -194,21 +213,48 @@ def minus_quantity(request, slug):
     return redirect('cart')
 
 
-def calculate_price_coupon(request):
-    total_price_noncoupon = 0
-    total_price_with_coupon = 0
+def save_coupon_to_factor(request):
+    context = {}
+    finalized_obj = None
     if request.method == 'POST':
-        code = request.POST['coupon']
-        print(code)
-
-        total_price_noncoupon = request.POST['price']
-        total_price_noncoupon = int(float(total_price_noncoupon))
-        print(type(total_price_noncoupon))
-        coupons = CartCoupon.objects.filter(code=code)
-        if coupons.exists():
-            coupon = coupons[0]
-            total_price_with_coupon = (int(total_price_noncoupon) * (100 - coupon.discount_percent)) / 100
+        coupon_code = request.POST['coupon']
+        finalized_obj_id = request.POST['finalized_obj_id']
+        finalized_obj_id = int(finalized_obj_id)
+        finalized_obj_qs = FinalizedOrders.objects.filter(id=finalized_obj_id)
+        if finalized_obj_qs.exists():
+            finalized_obj = finalized_obj_qs[0]
+        coupon_qs = CartCoupon.objects.filter(code=coupon_code)
+        if coupon_qs.exists():
+            coupon = coupon_qs[0]
+            if finalized_obj.discount == 0:  # چک میکنه کد تخفیف نداشته باشه
+                finalized_obj.discount = coupon.discount_percent
+                finalized_obj.save()
+                context['finalized_obj'] = finalized_obj
+                context['finalized_obj_id'] = finalized_obj_id
+            else:
+                context['finalized_obj'] = finalized_obj
+                context['finalized_obj_id'] = finalized_obj_id
         else:
-            pass
-    return render(request, 'cart/total_price_with_coupon.html',
-                  {'total_price_with_coupon': total_price_with_coupon, 'total_price_noncoupon': total_price_noncoupon})
+            context['finalized_obj'] = finalized_obj
+            context['finalized_obj_id'] = finalized_obj_id
+
+    return render(request, 'cart/coupon.html', context)
+
+
+def success(request):
+    finalized_obj = None
+    if request.method == 'POST':
+        finalized_obj_id = request.POST['finalized_obj_id']
+        finalized_obj_id = int(finalized_obj_id)
+        finalized_obj_qs = FinalizedOrders.objects.filter(id=finalized_obj_id)
+        if finalized_obj_qs.exists():
+            finalized_obj = finalized_obj_qs[0]
+            finalized_obj.payment = True
+            finalized_obj.save()
+            for item in finalized_obj.item.all():  # بیا هر ایتم رو وضعیت سفارش رو به تمام شده تغییر بده.
+                item.book.stock = item.book.stock - item.quantity  # موجودی کتاب به اندازه ی تعداد سفارش کم میشه
+                item.book.save()
+                item.ordered = 'F'
+                item.save()
+    return render(request, 'cart/success.html')
+

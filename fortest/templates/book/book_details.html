@@ -23,6 +23,11 @@
                 {% if object.stock %}
                     <a href="{{ object.get_add_to_cart_url }}" class="btn btn-primary">افزودن به سبد
                     خرید</a>{{ object.price }}
+                    {% if object.bookcashcoupon_set.all %}
+                        <h4>قیمت تخفیف خورده: {{ object.total_price }}</h4>
+                    {% elif object.bookpercentcoupon_set.all %}
+                        <h4>قیمت تخفیف خورده: {{ object.total_price }}</h4>
+                    {% endif %}
                 {% else %}
                     <h4>ناموجود</h4>
                 {% endif %}

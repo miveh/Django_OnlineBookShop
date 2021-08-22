@@ -47,7 +47,7 @@ class CartItems(models.Model):
 
     @property
     def total_price(self):
-        return self.book.price * self.quantity
+        return self.book.total_price * self.quantity
 
     def __str__(self):
         return f'{self.book} {self.quantity} عدد در سبد {self.cart.id} با وضعیت سفارش : {self.ordered}'
@@ -62,18 +62,19 @@ class FinalizedOrders(models.Model):
         verbose_name_plural = 'فاکتورهای خرید'
 
     shipping_address = models.ForeignKey(ShippingAddress, on_delete=models.CASCADE, blank=True, null=True)
-    discount = models.ForeignKey('coupon.CartCoupon', on_delete=models.DO_NOTHING, blank=True, null=True)
+    discount = models.IntegerField(default='0')
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, blank=True, null=True)
     item = models.ManyToManyField(CartItems)
+    price = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now=True)
+    payment = models.BooleanField(default=False)
 
     def __str__(self):
         return f'تعداد {self.item.count()} محصول از سبد شماره ی {self.cart.id} در فاکتور شماره {self.id}' \
-               f' برای ارسال به {self.shipping_address.city}،{self.shipping_address.address} ثبت شد'
+               f' برای ارسال به {self.shipping_address.city}،{self.shipping_address.address} با وضعیت {self.payment} ثبت شد.'
 
-    # def factor_total_price(self):
-    #     factor_total = 0
-    #     for cart_item in self.item.all():
-    #         factor_total += cart_item.total_price
-    #     factor_total = (factor_total * (100 - self.discount)) / 100
-    #     return factor_total
+    @property
+    def factor_total_price(self):
+        total_price = (self.price * (100 - int(self.discount))) / 100
+
+        return total_price

@@ -10,6 +10,13 @@
     <a class="col-3" dir="rtl" href="{% url 'myfactors' %}">سفارش های من</a><br>
     </div>
 
+    {% if allowed %}
+        <div class="card card-header">
+            <span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span>
+            <h2>کتاب {{ book.name }} ناموجود شد و از سبد خرید شما حذف گردید.</h2>
+        </div>
+    {% endif %}
+
     <table class="table bg-warning">
         <thead>
         <tr>
@@ -47,7 +54,7 @@
                     </form>
                     </div>
                 </td>
-                <td>{{ item.book.price }}<span>تومان</span></td>
+                <td>{{ item.book.total_price }}<span>تومان</span></td>
                 <td>{{ item.total_price }}</td>
                 <td><img style="height:59px;width: 40px" src="{{ item.book.image.url }}" alt="Card image cap"></td>
                 <td><a class="btn btn-danger" href="{% url 'cart_remove' item.book.slug %}">حذف</a></td>
@@ -66,6 +73,10 @@
         {% endif %}
         </tbody>
     </table>
-    <a href="{% url 'orderedcart' %}" class="btn btn-success">لیست خرید نهایی</a>
+    {% if order %}
+        <a href="{% url 'orderedcart' %}" class="btn btn-success">لیست خرید نهایی</a>
+    {% else %}
+
+    {% endif %}
     {#{% url 'orders:create' %}#}
 {% endblock %}
