@@ -1,0 +1,12 @@
+{% extends '_base.html' %}
+{% block title %}Home{% endblock title %}
+{% block content %}
+    {% if user.is_authenticated %}
+       {{ user.email }}! :شما با این ایمیل وارد شدید
+        <p><a href="{% url 'logout' %}">خروج از حساب کاربری</a></p>
+    {% else %}
+        <p>You are not logged in</p>
+        <a href="{% url 'login' %}">ورود</a> |
+        <a href="{% url 'signup' %}">ثبت نام</a>
+    {% endif %}
+{% endblock content %}

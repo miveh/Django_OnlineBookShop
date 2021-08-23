@@ -1,0 +1,64 @@
+from django.contrib.auth.models import AbstractUser
+from django.db import models
+
+# Create your models here.
+from account.managers import CustomUserManager
+
+
+class CustomUser(AbstractUser):
+    """
+    این کلاس برای ساخت مدل یوزر است که دو نوع کاربر کارمند و مشتری هم از این ارث می برند.
+    """
+
+    class Meta:
+        verbose_name = 'مدیر'
+        verbose_name_plural = 'مدیران'
+
+    username = None
+    national_code = models.CharField(verbose_name='کدملی', max_length=10, default=0)
+    email = models.EmailField(verbose_name='ایمیل', unique=True)
+    first_name = models.CharField(verbose_name='نام', max_length=150, blank=True)
+    last_name = models.CharField(verbose_name='نام خانوادگی', max_length=150, blank=True)
+    is_staff = models.BooleanField(
+        verbose_name='کارمند',
+        default=False,
+    )
+    is_active = models.BooleanField(
+        verbose_name='فعال',
+        default=True,
+
+    )
+    password = models.CharField(verbose_name='رمزعبور', max_length=128)
+    last_login = models.DateTimeField(verbose_name='آخرین ورود', blank=True, null=True)
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    objects = CustomUserManager()
+
+    def __str__(self):
+        return self.email
+    # location = models.CharField(max_length=30, blank=True)
+    # birth_date = models.DateField(null=True, blank=True)
+    # objects = CustomUserManager()
+
+
+class Customer(CustomUser):
+    """
+    این کلاس برای ایجاد مشتریان است.
+    """
+
+    class Meta:
+        proxy = True
+        verbose_name = 'مشتری'
+        verbose_name_plural = 'مشتریان'
+
+
+class Staff(CustomUser):
+    """
+    این کلاس برای ایجاد کارمندان است.
+    """
+
+    class Meta:
+        proxy = True
+        verbose_name = 'کارمند'
+        verbose_name_plural = 'کارمندان'
