@@ -139,3 +139,9 @@ AUTH_USER_MODEL = 'account.CustomUser'  # new
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'zramive@gmail.com'
+EMAIL_HOST_PASSWORD = 'pgnmonrgbvwkztkf'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
