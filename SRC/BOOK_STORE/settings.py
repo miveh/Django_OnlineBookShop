@@ -35,7 +35,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'account',  # new
+
+    # اپ های من
+    'account',
+    'book',
+
+    # پکیج های استفاده شده
     'crispy_forms',
 ]
 
@@ -129,17 +134,32 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static"
+]
+STATIC_ROOT = BASE_DIR / "assets"
+
+# medias
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / "media"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'account.CustomUser'  # new
+# ایجاد کاستوم یوزر
+AUTH_USER_MODEL = 'account.CustomUser'
+
+# انتقال لاگین و لاک اوت به home
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+
+# تنظیمات کریسپی برای خوشگل کردن فرم ها
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+# تنظیمات جیمیل برای ارسال جیمیل به مشتری ها
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'zramive@gmail.com'
 EMAIL_HOST_PASSWORD = 'pgnmonrgbvwkztkf'
