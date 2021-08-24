@@ -11,15 +11,11 @@ class CustomUserCreationForm(UserCreationForm):
 
     class Meta:
         model = CustomUser
-        fields = ['email', 'first_name', 'last_name', 'national_code']
+        fields = ['first_name', 'last_name', 'national_code', 'email']
 
-    default_city = forms.CharField(max_length=40, widget=forms.TextInput(attrs={'label': 'شهر'}))
-    default_address = forms.CharField(max_length=300, widget=forms.TextInput(attrs={'label': 'آدرس'}))
-    national_code = forms.CharField(max_length=10, min_length=10)
+    default_city = forms.CharField(max_length=40, widget=forms.TextInput(), label='شهر')
+    default_address = forms.CharField(max_length=300, widget=forms.TextInput(), label='محله، خیابان، کوچه...')
     use_required_attribute = ['national_code', 'first_name', 'last_name', 'default_city', 'default_address']
-
-
-# AddressFormset = inlineformset_factory(CustomUser, ShippingAddress, extra=1, exclude=())
 
 
 class CustomUserChangeForm(UserChangeForm):
@@ -30,11 +26,6 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
         fields = '__all__'
-
-
-
-
-
 
 
 class AddressForm(forms.ModelForm):

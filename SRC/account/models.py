@@ -26,7 +26,7 @@ class CustomUser(AbstractUser):
         default=True,
 
     )
-    password = models.CharField(verbose_name='رمزعبور', max_length=128)
+    # password = models.CharField(verbose_name='رمزعبور', max_length=128)
     last_login = models.DateTimeField(verbose_name='آخرین ورود', blank=True, null=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

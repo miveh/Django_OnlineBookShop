@@ -6,7 +6,23 @@
     <form method="post">
         {% csrf_token %}
         {{ form|crispy }}
-        <input type="text" name="city">
+{#        <label for="first_name">نام</label>#}
+{#        <input type="text" id="first_name" name="first_name">#}
+{##}
+{#        <label for="last_name">نام خانوادگی</label>#}
+{#        <input type="text" id="last_name" name="last_name">#}
+{##}
+{#        <label for="email">ایمیل</label>#}
+{#        <input type="text" id="email" name="email">#}
+{##}
+{#        <label for="national_code">کدملی</label>#}
+{#        <input type="text" id="national_code" name="national_code">#}
+{##}
+{#        <label for="city">شهر</label>#}
+{#        <input type="text" id="city" name="city">#}
+{##}
+{#        <label for="address">محله، خیابان، کوچه...</label>#}
+{#        <input type="text" id="address" name="address">#}
         <button type="submit">ثبت نام</button>
     </form>
 {% endblock content %}
