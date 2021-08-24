@@ -1,7 +1,5 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-
-# Create your models here.
 from account.managers import CustomUserManager
 
 
@@ -37,9 +35,6 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.email
-    # location = models.CharField(max_length=30, blank=True)
-    # birth_date = models.DateField(null=True, blank=True)
-    # objects = CustomUserManager()
 
 
 class Customer(CustomUser):
@@ -62,3 +57,20 @@ class Staff(CustomUser):
         proxy = True
         verbose_name = 'کارمند'
         verbose_name_plural = 'کارمندان'
+
+
+class ShippingAddress(models.Model):
+    """
+    ایجاد یک جدول برای نگهداری تمامی آدرس ها
+    """
+    class Meta:
+        verbose_name = 'آدرس'
+        verbose_name_plural = 'آدرس ها'
+
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name='کاربر')
+    city = models.CharField(max_length=40, verbose_name='شهر')
+    address = models.CharField(max_length=300, verbose_name='محله، خیابان، کوچه...')
+    default_address = models.BooleanField(default=False, verbose_name='آدرس اصلی')
+
+    def __str__(self):
+        return f'{self.id}'
