@@ -3,7 +3,15 @@ from django.db import models
 from django.urls import reverse
 from slugify import slugify
 
-from book.managers import CategoryManager
+
+# class CategoryManager(models.Manager):
+#
+#     def get_not_null_category(self):
+#         """
+#         :return: تمامی دسته بندی هایی که شامل کتاب هستند.
+#         """
+#         null_category = Category.objects.exclude(book__isnull=True)
+#         return null_category
 
 
 class Category(models.Model):
@@ -17,7 +25,7 @@ class Category(models.Model):
 
     category = models.CharField(max_length=40, unique=True)
     slug = models.SlugField(unique=True, blank=True)
-    objects = CategoryManager()
+    # objects = CategoryManager()
 
     def save(self, *args, **kwargs):
         """
@@ -50,20 +58,21 @@ class Book(models.Model):
         verbose_name = 'کتاب'
         verbose_name_plural = 'کتاب ها'
 
-    name = models.CharField(max_length=50, unique=True)
-    image = models.ImageField(default='product.png', upload_to='books/')  # نگهداری تصویر هر کتاب در دایرکتوری books
-    author = models.CharField(max_length=50)
-    price = models.DecimalField(max_digits=8, decimal_places=2)
-    created = models.DateTimeField(auto_now_add=True)
-    stock = models.IntegerField(default=1)
-    description = models.CharField(max_length=500, default='بدون توضیحات')
-    category = models.ManyToManyField(Category)
+    name = models.CharField(verbose_name='نام', max_length=50, unique=True)
+    image = models.ImageField(verbose_name='تصویر', default='product.png', upload_to='books/')
+    author = models.CharField(verbose_name='نویسنده', max_length=50)
+    price = models.DecimalField(verbose_name='قیمت به تومان', max_digits=8, decimal_places=2)
+    created = models.DateTimeField(verbose_name='تاریخ ثبت', auto_now_add=True)
+    stock = models.IntegerField(verbose_name='موجودی', default=1)
+    description = models.CharField(verbose_name='درباره کتاب', max_length=500, default='بدون توضیحات')
+    category = models.ManyToManyField(Category, verbose_name='دسته بندی')
     slug = models.SlugField(unique=True, blank=True)
 
     def save(self, *args, **kwargs):
         """
         هنگام ذخیره ی هر شی اسلاگ آن را بررسی و بهتر می کند.
         """
+
         self.slug = slugify(self.name)
         book_slug = self.slug
         if book_slug == "":
@@ -75,30 +84,30 @@ class Book(models.Model):
         self.slug = book_slug
         super().save(*args, **kwargs)
 
-    @property
-    def total_price(self):
-        """
-        :return: قیمت نهایی هر کتاب پس از اعمال تمامی کد تخفیفهای درصدی و نقدی روی هر عنوان کتاب
-        """
-        total_cache_coupon = 0
-        total_percent_coupon = 0
-
-        cache_coupons_of_book_qs = self.bookcashcoupon_set.all()
-        percent_coupons_of_book_qs = self.bookpercentcoupon_set.all()
-
-        if cache_coupons_of_book_qs.exists():
-            for cache_coupon in cache_coupons_of_book_qs:
-                total_cache_coupon += cache_coupon.discount_price
-
-        if percent_coupons_of_book_qs.exists():
-            for percent_coupon in percent_coupons_of_book_qs:
-                total_percent_coupon += percent_coupon.discount_percent
-
-        self.price = float(self.price)
-        self.price = int(self.price)
-        book_total_price = ((self.price - total_cache_coupon) * (100 - total_percent_coupon)) / 100
-
-        return book_total_price
+    # @property
+    # def total_price(self):
+    #     """
+    #     :return: قیمت نهایی هر کتاب پس از اعمال تمامی کد تخفیفهای درصدی و نقدی روی هر عنوان کتاب
+    #     """
+    #     total_cache_coupon = 0
+    #     total_percent_coupon = 0
+    #
+    #     cache_coupons_of_book_qs = self.bookcashcoupon_set.all()
+    #     percent_coupons_of_book_qs = self.bookpercentcoupon_set.all()
+    #
+    #     if cache_coupons_of_book_qs.exists():
+    #         for cache_coupon in cache_coupons_of_book_qs:
+    #             total_cache_coupon += cache_coupon.discount_price
+    #
+    #     if percent_coupons_of_book_qs.exists():
+    #         for percent_coupon in percent_coupons_of_book_qs:
+    #             total_percent_coupon += percent_coupon.discount_percent
+    #
+    #     self.price = float(self.price)
+    #     self.price = int(self.price)
+    #     book_total_price = ((self.price - total_cache_coupon) * (100 - total_percent_coupon)) / 100
+    #
+    #     return book_total_price
 
     def __str__(self):
         return f'{self.name}'

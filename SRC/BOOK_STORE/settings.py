@@ -38,7 +38,7 @@ INSTALLED_APPS = [
 
     # اپ های من
     'account',
-    # 'book',
+    'book',
 
     # پکیج های استفاده شده
     'crispy_forms',
@@ -68,6 +68,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                # این پروسسور چند کوئری ست برای نمایش دسته ها و کتابها در هدر سایت برمی کگرداند.
+                'book.context_processors.categories',
             ],
         },
     },
@@ -142,7 +145,6 @@ STATIC_ROOT = BASE_DIR / "assets"
 # medias
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / "media"
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

@@ -1,0 +1,15 @@
+@font-face {
+    font-family: myFirstFont;
+    src: url("../fonts/IRANYekanWebRegular.woff");
+}
+
+@font-face {
+    font-family: myFirstFont;
+    src: url("../fonts/IRANYekanWebBold.woff");
+    font-weight: bold;
+}
+
+* {
+    font-family: myFirstFont, monospace;
+}
+
