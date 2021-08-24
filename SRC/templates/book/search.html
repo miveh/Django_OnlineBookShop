@@ -1,0 +1,86 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/books.css' %}">
+{% endblock %}
+{% block title %}
+    جستجوی کتاب
+{% endblock %}
+{% block search %}
+    <center>
+        {% if searched %}
+            {% if result %}
+
+                <h1>نتیجه ی جستجو</h1>
+                <div class="container">
+                    <div class="row">
+
+
+                        {% for book in result %}
+
+                            <div class="col-xs-12 col-md-6 bootstrap snippets bootdeys">
+                                <!-- product -->
+                                <div class="product-content product-wrap clearfix text-right">
+                                    <div class="row">
+                                        <div class="col-md-5 col-sm-12 col-xs-12">
+                                            <div style="margin-right: 13px;">
+                                                <img src="{{ book.image.url }}" alt="194x228"
+                                                     class="img-responsive image-product-home">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7 col-sm-12 col-xs-12">
+                                            <div class="product-deatil">
+                                                <h5 class="name">
+                                                    <a href="#">
+                                                        {{ book.name }}
+                                                        {% for category in book.category.all %}
+                                                            <span>{{ category }}</span>
+                                                        {% endfor %}
+
+                                                    </a>
+                                                </h5>
+                                                <p class="price-container">
+                                                    <span>{{ book.price }}</span><span>هزارتومان</span>
+                                                </p>
+                                                <span class="tag1"></span>
+                                            </div>
+                                            <br><br>
+                                            <div class="product-info smart-form">
+                                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                                    <a href="{% url 'book_detail' book.slug %}" class="btn btn-success">مشاهده
+                                                        جزئیات</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end product -->
+                            </div>
+
+                        {% endfor %}
+
+
+                    </div>
+                </div>
+            {% else %}
+
+                <div class="card border-warning mb-3" style="max-width: 18rem;margin-top: 200px">
+                    <div class="card-body text-warning">
+                        <p class="card-text">چیزی یافت نشد!!!</p>
+                    </div>
+                </div>
+
+            {% endif %}
+
+        {% endif %}
+        {% if not searched %}
+
+            <div class="card border-warning mb-3" style="max-width: 18rem;margin-top: 200px">
+                <div class="card-body text-warning">
+                    <p class="card-text">چیزی جستجو نکردید!!!</p>
+                </div>
+            </div>
+
+        {% endif %}
+    </center>
+{% endblock %}

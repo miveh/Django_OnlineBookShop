@@ -24,10 +24,11 @@
     <a class="navbar-brand" href="#">کتاب فروشی میوه‌چی</a>&nbsp;&nbsp;
 
 
-    <form class="form-inline my-2 my-lg-0">
+    <form class="form-inline my-2 my-lg-0" method="post" action="{% url 'search' %}" >
+        {% csrf_token %}
         <div class="input-group search-box">
             <button class="btn my-2 my-sm-0 btn-search" type="submit">جستجو</button>
-            <input class="form-control mr-sm-2" type="search" placeholder="جستجوی کتاب..." aria-label="Search">
+            <input class="form-control mr-sm-2" type="search" name="searched" placeholder="جستجوی کتاب..." aria-label="Search">
         </div>
     </form>
 
@@ -99,6 +100,9 @@
 
 {% endblock content %}
 
+{% block search %}
+
+{% endblock search %}
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

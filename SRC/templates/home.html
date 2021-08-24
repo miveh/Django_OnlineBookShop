@@ -5,7 +5,19 @@
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
 {% endblock %}
 {% block content %}
-    <div class="home-bg"></div>
+    <div class="home-bg">
+        <div class="poem col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center panel-transparent">
+            <p>
+                از بس کتاب در گرو باده کرده‌ایم
+            <p/>
+            <p>
+                امروز خشت میکده‌ها از کتاب ماست
+            </p>
+            <p>
+                صائب تبریزی
+            </p>
+        </div>
+    </div>
     <br><br>
     <h5 class="text-center">پرفروش ترین ها</h5>
     <hr>
@@ -45,7 +57,8 @@
                                 <br><br>
                                 <div class="product-info smart-form">
                                     <div class="col-md-6 col-sm-6 col-xs-6">
-                                        <a href="{% url 'book_detail' book.slug %}" class="btn btn-success">مشاهده جزئیات</a>
+                                        <a href="{% url 'book_detail' book.slug %}" class="btn btn-success">مشاهده
+                                            جزئیات</a>
                                     </div>
                                 </div>
                             </div>

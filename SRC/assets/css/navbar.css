@@ -3,9 +3,10 @@ body {
 	font-family: 'Varela Round', sans-serif;
 }
 .navbar {
+	padding-bottom: 30px;
 	color: #fff;
 	background: #92C9AA !important;
-	padding: 5px 16px;
+	padding-top: 30px;
 	border-radius: 0;
 	border: none;
 	box-shadow: 0 0 4px rgba(0,0,0,.1);
@@ -17,7 +18,7 @@ body {
 	margin-right: 10px;
 }
 .navbar .navbar-brand {
-	color: #efe5ff;
+	color: #4A5480;
 	padding-left: 0;
 	padding-right: 5px;
 	font-size: 24px;
@@ -134,7 +135,7 @@ body {
 	background-color: #e9ecef !important;
 }
 .btn-search {
-	background: #B29576;
+	background: #6E9FB8;
 }
 @media (min-width: 1200px){
 	.form-inline .input-group {

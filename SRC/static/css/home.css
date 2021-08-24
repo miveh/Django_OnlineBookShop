@@ -7,6 +7,7 @@ hr {
 
     width: 700px;
 }
+
 .image-product-home {
     width: 194px;
     height: 228px;
@@ -18,8 +19,8 @@ hr {
     margin-top: 12px;
     background: #fff;
     padding: 4px;
-        -webkit-box-shadow: 0 1px 4px 0 rgba(0,0,0,0.37);
-    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.37);
+    -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
 }
 
 .product-content .carousel-control.left {
@@ -182,14 +183,14 @@ hr {
     position: relative
 }
 
-.shop-btn>span {
+.shop-btn > span {
     background: #a90329;
     display: inline-block;
     font-size: 10px;
     box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1), inset 0 -1px 0 rgba(0, 0, 0, .07);
     font-weight: 700;
     border-radius: 50%;
-    padding: 2px 4px 3px!important;
+    padding: 2px 4px 3px !important;
     text-align: center;
     line-height: normal;
     width: 19px;
@@ -198,7 +199,7 @@ hr {
 }
 
 .description-tabs {
-    padding: 30px 0 5px!important
+    padding: 30px 0 5px !important
 }
 
 .description-tabs .tab-content {
@@ -209,13 +210,13 @@ hr {
     padding: 30px 30px 50px
 }
 
-.product-deatil hr+.description-tabs {
-    padding: 0 0 5px!important
+.product-deatil hr + .description-tabs {
+    padding: 0 0 5px !important
 }
 
 .product-deatil .carousel-control.left,
 .product-deatil .carousel-control.right {
-    background: none!important
+    background: none !important
 }
 
 .product-deatil .glyphicon {
@@ -250,16 +251,16 @@ hr {
 }
 
 .product-deatil .fa-2x {
-    font-size: 16px!important
+    font-size: 16px !important
 }
 
-.product-deatil .fa-2x>h5 {
+.product-deatil .fa-2x > h5 {
     font-size: 12px;
     margin: 0
 }
 
-.product-deatil .fa-2x+a,
-.product-deatil .fa-2x+a+a {
+.product-deatil .fa-2x + a,
+.product-deatil .fa-2x + a + a {
     font-size: 13px
 }
 
@@ -305,22 +306,34 @@ hr {
     width: calc(100% - 70px)
 }
 
-@media only screen and (min-width:1024px) {
+.poem {
+    width: max-content;
+    top: 213px;
+    background: #F8F2C8;
+    padding:23px 23px  ;
+}
+
+@media only screen and (min-width: 1024px) {
     .product-content div[class*=col-md-4] {
         padding-right: 0
     }
+
     .product-content div[class*=col-md-8] {
         padding: 0 13px 0 0
     }
+
     .product-wrap div[class*=col-md-5] {
         padding-right: 0
     }
+
     .product-wrap div[class*=col-md-7] {
         padding: 0 13px 0 0
     }
+
     .product-content .product-image {
         border-right: 1px solid #dfe5e9
     }
+
     .product-content .product-info {
         position: relative
     }

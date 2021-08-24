@@ -28,3 +28,11 @@ class BookDetailView(DetailView):
 
     model = Book
     template_name = 'book/book_details.html'
+
+
+def search_bar(request):
+    if request.method == 'POST':
+        searched = request.POST['searched']
+        result = Book.objects.filter(name__contains=searched)
+        return render(request, 'book/search.html', {'searched': searched, 'result':result})
+    return render(request, 'book/search.html', {})

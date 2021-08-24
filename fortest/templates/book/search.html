@@ -3,7 +3,7 @@
     <center>
     {% if searched %}
         <h1>نتیجه ی جستجو</h1>
-        {% for book in books %}
+        {% for book in result %}
             <div class="card" style="width: 18rem;">
                 <img class="card-img-top" src="{{ book.image.url }}" alt="Card image cap">
                 <div class="card-body">
