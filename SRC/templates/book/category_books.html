@@ -9,7 +9,7 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            {% for book in books %}
+            {% for book in object.book_set.all %}
                 <div class="col-xs-12 col-md-6 bootstrap snippets bootdeys">
                     <!-- product -->
                     <div class="product-content product-wrap clearfix text-right">
@@ -49,5 +49,4 @@
             {% endfor %}
         </div>
     </div>
-    {#<a href="{% url 'bookdetail' book.slug %}" class="btn btn-primary">مشاهده جزئیات</a>#}
 {% endblock content %}

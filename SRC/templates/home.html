@@ -18,10 +18,10 @@
             {% for book in books %}
                 <div class="col-xs-12 col-md-6 bootstrap snippets bootdeys">
                     <!-- product -->
-                    <div class="product-content product-wrap clearfix">
+                    <div class="product-content product-wrap clearfix text-right">
                         <div class="row">
                             <div class="col-md-5 col-sm-12 col-xs-12">
-                                <div class="product-image">
+                                <div style="margin-right: 13px;">
                                     <img src="{{ book.image.url }}" alt="194x228"
                                          class="img-responsive image-product-home">
                                 </div>
@@ -45,7 +45,7 @@
                                 <br><br>
                                 <div class="product-info smart-form">
                                     <div class="col-md-6 col-sm-6 col-xs-6">
-                                        <a href="javascript:void(0);" class="btn btn-success">مشاهده جزئیات</a>
+                                        <a href="{% url 'book_detail' book.slug %}" class="btn btn-success">مشاهده جزئیات</a>
                                     </div>
                                 </div>
                             </div>
