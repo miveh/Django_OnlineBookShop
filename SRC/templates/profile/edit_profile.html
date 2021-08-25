@@ -2,7 +2,7 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block stylesheet %}
-    <link rel="stylesheet" href="{% static 'css/address.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 {% endblock %}
 {% block title %}ویرایش پروفایل{% endblock title %}
 {% block content %}
@@ -14,5 +14,8 @@
         {{ form.national_code | as_crispy_field }}
         <button type="submit" class="btn">ویرایش</button>
     </form>
-    <a class="btn btn-primary address-btn" href="{% url 'address' %}">افزودن آدرس</a>
+    <a class="btn btn-primary address-btn" href="{% url 'address' %}">افزودن آدرس</a><br>
+    <a class="btn btn-primary password-btn" href="{% url 'password_change' %}">تغییر پسوورد</a>
+    <a class="btn btn-primary password-btn" href="{% url 'password_change' %}">آدرس های من</a>
+
 {% endblock content %}
