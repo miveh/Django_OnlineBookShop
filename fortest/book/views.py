@@ -37,5 +37,5 @@ def search_bar(request):
     if request.method == 'POST':
         searched = request.POST['searched']
         books = Book.objects.filter(name__contains=searched)
-        return render(request, 'book/search.html', {'searched': searched, 'books':books})
+        return render(request, 'book/search.html', {'searched': searched, 'for ':books})
     return render(request, 'book/search.html', {})

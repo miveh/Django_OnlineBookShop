@@ -8,46 +8,56 @@
 {% endblock title %}
 {% block content %}
     <!-- product -->
-    <div class="product-content product-wrap clearfix product-deatil">
-        <div class="row">
-            <div class="col-md-5 col-sm-12 col-xs-12">
-                <div class="product-image">
-                    <div class="item active">
-                        <img src="{{ object.image.url }}" class="img-responsive" style="width: 300px;height: 400px" alt=""/>
-                    </div>
-                </div>
-            </div>
+    <div class="mt-5">
+        <div class="container">
+            <div class="container">
+                <div class="article-entry">
+                    <div class="product-content product-wrap clearfix product-deatil">
+                        <div class="row">
+                            <div class="col-md-5 col-sm-12 col-xs-12">
+                                <div class="product-image">
+                                    <div class="item active">
+                                        <img src="{{ object.image.url }}" class="img-responsive"
+                                             style="width: 300px;height: 400px" alt=""/>
+                                    </div>
+                                </div>
+                            </div>
 
-            <div class="col-md-6 col-md-offset-1 col-sm-12 col-xs-12 text-right">
-                <h2 class="name">
-                    {{ object.name }}
-                    <h5>نویسنده: <span>{{ object.author }}</span></h5>
+                            <div class="col-md-6 col-md-offset-1 col-sm-12 col-xs-12 text-right">
+                                <h2 class="name">
+                                    {{ object.name }}
+                                    <h5>نویسنده: <span>{{ object.author }}</span></h5>
 
-                </h2>
-                <hr/>
-                <h3 class="price-container">
-                    {{ object.price }}
-                    <small>تومان</small>
-                </h3>
+                                </h2>
+                                <hr/>
+                                <h3 class="price-container">
+                                    {{ object.price }}
+                                    <small>تومان</small>
+                                </h3>
 
-                <hr/>
-                <div class="description description-tabs">
-                    <div id="myTabContent" class="tab-content">
-                        <div class="" id="more-information">
-                            <br/>
-                            <h3>درباره ی کتاب</h3>
-                            <p>
-                                {{ object.description }}
-                            </p>
+                                <hr/>
+                                <div class="description description-tabs">
+                                    <div id="myTabContent" class="tab-content">
+                                        <div class="" id="more-information">
+                                            <br/>
+                                            <h3>درباره ی کتاب</h3>
+                                            <p>
+                                                {{ object.description }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6 col-lg-6">
+                                        <a href="javascript:void(0);" class="btn btn-success btn-lg">افزودن به سبد
+                                            خرید</a>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <hr/>
-                <div class="row">
-                    <div class="col-sm-12 col-md-6 col-lg-6">
-                        <a href="javascript:void(0);" class="btn btn-success btn-lg">افزودن به سبد خرید</a>
-                    </div>
-
                 </div>
             </div>
         </div>
