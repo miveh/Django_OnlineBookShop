@@ -12,6 +12,8 @@
 
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     <link rel="stylesheet" href="{% static 'css/fonts.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+
     {% block stylesheet %}{% endblock stylesheet %}
 
     <title>{% block title %}{% endblock title %}</title>
@@ -130,6 +132,10 @@
 {% block search %}
 
 {% endblock search %}
+
+<footer class="footer">
+    <div class="footer"></div>
+</footer>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
