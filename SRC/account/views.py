@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, TemplateView
 from account.forms import CustomUserCreationForm, CustomUserChangeForm, AddressForm
 from account.models import ShippingAddress, CustomUser
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -71,3 +71,10 @@ class CreateAddressView(LoginRequiredMixin, CreateView):
             print("Oops! An exception has occurred:  {self.request.user}", error)
 
         return super().form_valid(form)
+
+
+class StaffPanel(TemplateView):
+    """
+    پنل کارمند
+    """
+    template_name = "staff/staff.html"

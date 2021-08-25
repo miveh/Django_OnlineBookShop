@@ -49,7 +49,7 @@
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li><a class="dropdown-item" href="{% url 'booklist' %}">همه کتاب ها</a></li>
-            {% for category in categories %}
+            {% for category in categories_books %}
                 <li class="row"><a class="col-6 dropdown-item" style="width: 50%"
                                    href="{% url 'categorydetail' category.slug %}">{{ category }}</a>
                     <span style="width: 20%"

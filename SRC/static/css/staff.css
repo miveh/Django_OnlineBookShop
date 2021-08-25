@@ -1,0 +1,43 @@
+.staff-btn-one {
+    background: #F5F5F5;
+    height: 300px;
+    width: 300px;
+    border-radius: 10%;
+    text-decoration: none;
+}
+
+.staff-btn-tow {
+    background: #F5F5F5;
+    height: 300px;
+    width: 300px;
+    border-radius: 10%;
+    text-decoration: none;
+}
+
+.staff-btn-tow:hover {
+    text-decoration: none;
+}
+
+.staff-btn-one:hover {
+    text-decoration: none;
+}
+
+
+.staff-btn-h3 {
+    padding-top: 134px;
+    padding-left: 172px;
+}
+
+@media (max-width: 1199px){
+    .staff-btn-h3 {
+        padding-top: 134px;
+        padding-left: 133px;
+    }
+}
+
+@media (max-width: 762px) {
+    .staff-btn-h3 {
+        padding-top: 134px;
+        padding-left: 172px;
+    }
+}

@@ -2,9 +2,10 @@ from django.core.management.base import BaseCommand, CommandError
 from cart.models import FinalizedOrders
 import datetime
 
+
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        count =0
+        count = 0
         factors = FinalizedOrders.objects.filter(payment=False)
         now = datetime.datetime.now()
         for factor in factors:

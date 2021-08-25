@@ -1,5 +1,7 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView
 from book.models import Category, Book
 
 
@@ -30,9 +32,18 @@ class BookDetailView(DetailView):
     template_name = 'book/book_details.html'
 
 
+class BookCreationView(LoginRequiredMixin, CreateView):
+    model = Book
+    template_name = 'book/book_form.html'
+    success_url = reverse_lazy('staff')
+
+
 def search_bar(request):
     if request.method == 'POST':
         searched = request.POST['searched']
         result = Book.objects.filter(name__contains=searched)
+        print(result)
         return render(request, 'book/search.html', {'searched': searched, 'result':result})
     return render(request, 'book/search.html', {})
+
+

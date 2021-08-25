@@ -1,0 +1,31 @@
+{% extends '_base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/staff.css' %}">
+{% endblock %}
+{% block title %}پنل کارمند{% endblock title %}
+{% block content %}
+    <div class="container">
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+
+                <a href="" class="col-md-5 col-sm-12 col-xs-12 staff-btn-one ">
+{#                <a href="{% url 'staff_add_coupon' %}" class="col-md-5 col-sm-12 col-xs-12 staff-btn-one ">#}
+                    <div class="">
+                        <h3 class="staff-btn-h3">تخفیف</h3>
+                    </div>
+                </a>
+                &nbsp;&nbsp;
+                <br><br> <br>
+                <a href="{% url 'staff_add_book' %}" class="col-md-5 col-sm-12 col-xs-12 staff-btn-tow">
+{#                <a href="{% url 'staff_add_book' %}" class="col-md-5 col-sm-12 col-xs-12 staff-btn-tow">#}
+                    <div class="">
+                        <h3 class="staff-btn-h3">کتاب</h3>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </div>
+{% endblock content %}

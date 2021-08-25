@@ -1,22 +1,33 @@
 {% extends '_base.html' %}
 {% block search %}
     <center>
-    {% if searched %}
-        <h1>نتیجه ی جستجو</h1>
-        {% for book in result %}
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="{{ book.image.url }}" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">{{ book.name }}-{{ book.price }}</h5>
-                    <p class="card-text">{{ obj.description }}</p>
-                    <a href="{% url 'bookdetail' book.slug %}" class="btn btn-primary">مشاهده جزئیات</a>
+        {% if searched %}
+            <h1>نتیجه ی جستجو</h1>
+            {% for book in books %}
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="{{ book.image.url }}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ book.name }}-{{ book.price }}</h5>
+                        <p class="card-text">{{ obj.description }}</p>
+                        <a href="{% url 'bookdetail' book.slug %}" class="btn btn-primary">مشاهده جزئیات</a>
+                    </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+            {% for book in books_2 %}
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="{{ book.image.url }}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ book.name }}-{{ book.price }}</h5>
+                        <p class="card-text">{{ obj.description }}</p>
+                        <a href="{% url 'bookdetail' book.slug %}" class="btn btn-primary">مشاهده جزئیات</a>
+                    </div>
+                </div>
+            {% endfor %}
 
-    {% else %}
-        <h1>کتاب مورد نظر خودرا جستجو کنید</h1>
-    {% endif %}
+
+        {% else %}
+            <h1>کتاب مورد نظر خودرا جستجو کنید</h1>
+        {% endif %}
 
     </center>
 {% endblock %}
