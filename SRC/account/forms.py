@@ -25,10 +25,14 @@ class CustomUserChangeForm(UserChangeForm):
 
     class Meta:
         model = CustomUser
-        fields = '__all__'
+        fields = ['first_name', 'last_name', 'national_code']
 
 
 class AddressForm(forms.ModelForm):
+    """
+    این مدل یک فرم برای گرفتن آدرس جدید از مشتری ایجاد می کند.
+    """
+
     class Meta:
         model = ShippingAddress
         fields = ['city', 'address']

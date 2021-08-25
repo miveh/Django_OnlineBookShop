@@ -24,11 +24,12 @@
     <a class="navbar-brand" href="#">کتاب فروشی میوه‌چی</a>&nbsp;&nbsp;
 
 
-    <form class="form-inline my-2 my-lg-0" method="post" action="{% url 'search' %}" >
+    <form class="form-inline my-2 my-lg-0" method="post" action="{% url 'search' %}">
         {% csrf_token %}
         <div class="input-group search-box">
             <button class="btn my-2 my-sm-0 btn-search" type="submit">جستجو</button>
-            <input class="form-control mr-sm-2" type="search" name="searched" placeholder="جستجوی کتاب..." aria-label="Search">
+            <input class="form-control mr-sm-2" type="search" name="searched" placeholder="جستجوی کتاب..."
+                   aria-label="Search">
         </div>
     </form>
 
@@ -54,32 +55,58 @@
                     <div class="dropdown-divider"></div>
 
                     {% for category in categories %}
-                        <a class="dropdown-item" href="{% url 'category_books' category.slug %}">{{ category.category }}</a>
+                        <a class="dropdown-item"
+                           href="{% url 'category_books' category.slug %}">{{ category.category }}</a>
                         <div class="dropdown-divider"></div>
                     {% endfor %}
                 </div>
             </li>
 
             {% if user.is_authenticated %}
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">
-                        {{ user.email }}
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                {% if user.is_staff %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            {{ user.email }}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                        <a class="dropdown-item" href="#">پروفایل</a>
-                        <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">پنل کارکنان</a>
+                            <div class="dropdown-divider"></div>
 
-                        <a class="dropdown-item" href="{% url 'logout' %}">خروج از حساب کاربری</a>
-                        <div class="dropdown-divider"></div>
 
-                        <a class="dropdown-item" href="#">سبد خرید</a>
-                        <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'edit_profile' %}">پروفایل</a>
+                            <div class="dropdown-divider"></div>
 
-                    </div>
-                </li>
+                            <a class="dropdown-item" href="{% url 'logout' %}">خروج از حساب کاربری</a>
+                            <div class="dropdown-divider"></div>
+
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            {{ user.email }}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                            <a class="dropdown-item" href="{% url 'edit_profile' %}">پروفایل</a>
+                            <div class="dropdown-divider"></div>
+
+                            <a class="dropdown-item" href="{% url 'logout' %}">خروج از حساب کاربری</a>
+                            <div class="dropdown-divider"></div>
+
+                            <a class="dropdown-item" href="#">سبد خرید</a>
+                            <div class="dropdown-divider"></div>
+
+                            <a class="dropdown-item" href="#">تاریخچه سفارشات</a>
+                            <div class="dropdown-divider"></div>
+                        </div>
+                    </li>
+                {% endif %}
             {% else %}
 
                 <li class="nav-item active">

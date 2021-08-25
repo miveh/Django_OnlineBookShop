@@ -1,0 +1,17 @@
+{% extends '_base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/address.css' %}">
+{% endblock %}
+{% block title %}افزودن آدرس{% endblock title %}
+{% block content %}
+    <h2>آدرس جدید</h2>
+    <form method="post" class="form-control col-md-auto">
+        {% csrf_token %}
+        {{ form | crispy}}
+{#        {{ form.last_name | as_crispy_field }}#}
+{#        {{ form.national_code | as_crispy_field }}#}
+        <button type="submit" class="btn">ذخیره</button>
+    </form>
+{% endblock content %}
