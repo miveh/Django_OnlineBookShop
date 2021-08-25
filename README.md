@@ -4,4 +4,4 @@
 
 Admin Panel:
 
-![Demo](https://user-images.githubusercontent.com/46049723/130742136-4947892f-4137-4d65-bd4e-0eb315fc015a.png)
+![Demo](https://user-images.githubusercontent.com/46049723/130764421-dd63de6e-8324-4d5d-9d0b-31150e541580.png)
