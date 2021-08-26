@@ -54,6 +54,16 @@ class CategoryCreationView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('staff')
 
 
+class StoreroomView(LoginRequiredMixin, ListView):
+    """
+    انبار
+    """
+
+    model = Book
+    context_object_name = 'book_storeroom'
+    template_name = 'staff/storeroom.html'
+
+
 def search_bar(request):
     """
     :param request: اسم یک کتاب یا یک نویسنده یا بخشی از آنها

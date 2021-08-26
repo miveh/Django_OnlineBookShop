@@ -41,6 +41,12 @@
     background-image: url("../images/coupon.jpg");
 }
 
+.staff-navbar {
+    background: #FFB304 !important;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
 @media (max-width: 1199px) {
     .staff-btn-h3 {
         padding-top: 134px;

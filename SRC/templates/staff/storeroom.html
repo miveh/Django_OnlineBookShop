@@ -1,0 +1,42 @@
+{% extends 'staff/staff.html' %}
+{% load static %}
+{% block stylesheet %}
+
+    <link rel="stylesheet" href="{% static 'css/staff.css' %}">
+    <link rel="stylesheet" href="{% static 'css/storeroom.css' %}">
+{% endblock %}
+{% block title %}
+    انبار
+{% endblock %}
+{% block storeroom %}
+    <div class="container">
+        <div class="container mt-3">
+            <div class="card card-body storeroom">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">تاریخ ثبت</th>
+                        <th scope="col">موجودی</th>
+                        <th scope="col">نویسنده</th>
+                        <th scope="col">عنوان</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for book in book_storeroom %}
+                        <tr>
+                            <th scope="row">حذف/ویرایش</th>
+                            <td>{{ book.created }}</td>
+                            <td>{{ book.stock }}</td>
+                            <td>{{ book.author }}</td>
+                            <td>{{ book.name }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock storeroom %}

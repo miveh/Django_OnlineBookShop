@@ -4,13 +4,13 @@
 {% block stylesheet %}
     <link rel="stylesheet" href="{% static 'css/staff.css' %}">
 {% endblock %}
-{% block title %}کتاب جدید{% endblock title %}
-{% block book %}
-    <h2>کتاب جدید</h2>
+{% block title %}تخفیف جدید{% endblock title %}
+{% block coupon %}
+    <h2>تخفیف جدید</h2>
     <form method="post" class="form-control col-md-auto" accept-charset="utf-8" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|crispy}}
         <button type="submit" class="btn">ایجاد</button>
     </form>
 
-{% endblock book %}
+{% endblock coupon %}

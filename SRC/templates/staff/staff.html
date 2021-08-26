@@ -3,34 +3,104 @@
 {% load crispy_forms_tags %}
 {% block stylesheet %}
     <link rel="stylesheet" href="{% static 'css/staff.css' %}">
+{#    <link rel="stylesheet" href="{% static 'css/staff_navbar.css' %}">#}
 {% endblock %}
 {% block title %}پنل کارمند{% endblock title %}
 {% block content %}
-    <div class="container">
-        <div class="container mt-5 ">
-            <div class="row">
-                <a href=""
-                   class="col-sm text-center font-italic staff-btn-one  d-flex align-items-center justify-content-center coupon-bg">
-                    <h1 class="card card-body p-5">تخفیف</h1>
-                </a>&nbsp;&nbsp;
-                <a href="{% url 'staff_add_category' %}"
-                   class="col-sm text-center font-italic staff-btn-one  d-flex align-items-center justify-content-center category-bg">
-                    <h1 class="card card-body p-5">دسته بندی</h1>
-                </a>&nbsp;&nbsp;
-                <a href="{% url 'staff_add_book' %}"
-                   class="col-sm text-center font-italic staff-btn-one  d-flex align-items-center justify-content-center book-bg">
-                    <h1 class="card card-body p-5">کتاب</h1>
-                </a>
-            </div>
-            <br>
-            <div class="row ">
-                <a href="{% url 'staff_add_book' %}"
-                   class="col-sm-3 text-center font-italic staff-btn-tow  d-flex align-items-center justify-content-center m-1">
-                    <p>مشتریان</p></a>
-                <a href="{% url 'staff_add_book' %}"
-                   class="col-sm-3 text-center font-italic staff-btn-tow  d-flex align-items-center justify-content-center m-1">
-                    <p>سفارشات</p></a>
-            </div>
+    {#    <div class="container">#}
+    {#        <div class="container mt-5 ">#}
+    {#            <div class="row">#}
+    {#                <a href=""#}
+    {#                   class="col-sm text-center font-italic staff-btn-one  d-flex align-items-center justify-content-center coupon-bg">#}
+    {#                    <h1 class="card card-body p-5">تخفیف</h1>#}
+    {#                </a>&nbsp;&nbsp;#}
+    {#                <a href="{% url 'staff_add_category' %}"#}
+    {#                   class="col-sm text-center font-italic staff-btn-one  d-flex align-items-center justify-content-center category-bg">#}
+    {#                    <h1 class="card card-body p-5">دسته بندی</h1>#}
+    {#                </a>&nbsp;&nbsp;#}
+    {#                <a href="{% url 'staff_add_book' %}"#}
+    {#                   class="col-sm text-center font-italic staff-btn-one  d-flex align-items-center justify-content-center book-bg">#}
+    {#                    <h1 class="card card-body p-5">کتاب</h1>#}
+    {#                </a>#}
+    {#            </div>#}
+    {#            <br>#}
+    {#            <div class="row ">#}
+    {#                <a href="{% url 'staff_add_book' %}"#}
+    {#                   class="col-sm-3 text-center font-italic staff-btn-tow  d-flex align-items-center justify-content-center m-1">#}
+    {#                    <p>مشتریان</p></a>#}
+    {#                <a href="{% url 'staff_add_book' %}"#}
+    {#                   class="col-sm-3 text-center font-italic staff-btn-tow  d-flex align-items-center justify-content-center m-1">#}
+    {#                    <p>سفارشات</p></a>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
+
+    <nav class="navbar navbar-expand-lg navbar-dark staff-navbar " >
+
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" style="flex: inherit;" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown"
+                       style="color: black"
+                       aria-haspopup="true" aria-expanded="false">
+                        تخفیف
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                        <a class="dropdown-item" href="{% url 'staff_add_cart_coupon' %}">سبد خرید</a>
+                        <div class="dropdown-divider"></div>
+
+                        <a class="dropdown-item" href="{% url 'staff_add_book_cache_coupon' %}">نقدی کتاب</a>
+                        <div class="dropdown-divider"></div>
+
+                        <a class="dropdown-item" href="{% url 'staff_add_book_percent_coupon' %}">درصدی کتاب</a>
+                        <div class="dropdown-divider"></div>
+
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown"
+                       style="color: black"
+                       aria-haspopup="true" aria-expanded="false">
+                        کتاب
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                        <a class="dropdown-item" href="{% url 'staff_add_book' %}">افزودن</a>
+                        <div class="dropdown-divider"></div>
+
+                        <a class="dropdown-item" href="{% url 'storeroom' %}">انبار</a>
+                        <div class="dropdown-divider"></div>
+
+                    </div>
+                </li>
+
+            </ul>
+
         </div>
-    </div>
+    </nav>
+
+    <div class="col-4 staff-dashboard"></div>
+    {% block coupon %}
+    {% endblock coupon %}
+    {% block book %}
+
+    {% endblock book%}
+    {% block storeroom %}
+
+    {% endblock storeroom%}
 {% endblock content %}
+
+
+

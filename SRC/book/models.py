@@ -84,30 +84,31 @@ class Book(models.Model):
         self.slug = book_slug
         super().save(*args, **kwargs)
 
-    # @property
-    # def total_price(self):
-    #     """
-    #     :return: قیمت نهایی هر کتاب پس از اعمال تمامی کد تخفیفهای درصدی و نقدی روی هر عنوان کتاب
-    #     """
-    #     total_cache_coupon = 0
-    #     total_percent_coupon = 0
-    #
-    #     cache_coupons_of_book_qs = self.bookcashcoupon_set.all()
-    #     percent_coupons_of_book_qs = self.bookpercentcoupon_set.all()
-    #
-    #     if cache_coupons_of_book_qs.exists():
-    #         for cache_coupon in cache_coupons_of_book_qs:
-    #             total_cache_coupon += cache_coupon.discount_price
-    #
-    #     if percent_coupons_of_book_qs.exists():
-    #         for percent_coupon in percent_coupons_of_book_qs:
-    #             total_percent_coupon += percent_coupon.discount_percent
-    #
-    #     self.price = float(self.price)
-    #     self.price = int(self.price)
-    #     book_total_price = ((self.price - total_cache_coupon) * (100 - total_percent_coupon)) / 100
-    #
-    #     return book_total_price
+    @property
+    def total_price(self):
+        """
+        :return: قیمت نهایی هر کتاب پس از اعمال تمامی کد تخفیفهای درصدی و نقدی روی هر عنوان کتاب
+        """
+
+        total_cache_coupon = 0
+        total_percent_coupon = 0
+
+        cache_coupons_of_book_qs = self.bookcashcoupon_set.all()
+        percent_coupons_of_book_qs = self.bookpercentcoupon_set.all()
+
+        if cache_coupons_of_book_qs.exists():
+            for cache_coupon in cache_coupons_of_book_qs:
+                total_cache_coupon += cache_coupon.discount_price
+
+        if percent_coupons_of_book_qs.exists():
+            for percent_coupon in percent_coupons_of_book_qs:
+                total_percent_coupon += percent_coupon.discount_percent
+
+        self.price = float(self.price)
+        self.price = int(self.price)
+        book_total_price = ((self.price - total_cache_coupon) * (100 - total_percent_coupon)) / 100
+
+        return book_total_price
 
     def __str__(self):
         return f'{self.name}'
