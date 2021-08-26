@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # اپ های من
     'account',
     'book',
+    'coupon',
 
     # پکیج های استفاده شده
     'crispy_forms',

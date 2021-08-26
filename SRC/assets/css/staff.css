@@ -9,6 +9,8 @@
 .staff-btn-tow {
     background: #F5F5F5;
     height: 100px;
+
+    border-radius: 10%;
     text-decoration: none;
 }
 
@@ -26,22 +28,7 @@
     padding-left: 172px;
 }
 
-.book-bg {
-    background-image: url("../images/books.jpg");
-}
-
-.category-bg {
-    background: url("../images/category.jpg") center fixed;
-    /*background-size: auto 100%;*/
-    /*background-repeat: no-repeat;*/
-    /*background-position: left top;*/
-}
-
-.coupon-bg {
-    background-image: url("../images/coupon.jpg");
-}
-
-@media (max-width: 1199px) {
+@media (max-width: 1199px){
     .staff-btn-h3 {
         padding-top: 134px;
         padding-left: 133px;

@@ -1,7 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-
-from book.models import Book
+from book.models import Book, Category
 
 
 class BookCreationForm(forms.ModelForm):
@@ -11,7 +9,20 @@ class BookCreationForm(forms.ModelForm):
 
     class Meta:
         model = Book
-        # fields = ['name', 'author', 'price', 'stock', 'description', 'category', 'image']
+        fields = ['name', 'author', 'price', 'stock', 'description', 'category', 'image']
         # fields = '__all__'
-    # description = forms.CharField(max_length=40, widget=forms.Textarea())
-    # use_required_attribute = ['name', 'author', 'price', 'stock', 'category', 'image']
+
+    description = forms.CharField(max_length=500, widget=forms.Textarea())
+    use_required_attribute = ['name', 'author', 'price', 'stock', 'category', 'image']
+
+
+class CategoryCreationForm(forms.ModelForm):
+    """
+    فرم ایجاد دسته بندی
+    """
+
+    class Meta:
+        model = Category
+        fields = ['category']
+
+    use_required_attribute = ['category']
