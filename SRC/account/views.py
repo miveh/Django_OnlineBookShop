@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView, TemplateView
+from django.views.generic import CreateView, UpdateView, TemplateView, DeleteView, ListView, DetailView
 from account.forms import CustomUserCreationForm, CustomUserChangeForm, AddressForm
-from account.models import ShippingAddress, CustomUser
+from account.models import ShippingAddress, CustomUser, Staff
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -35,11 +35,19 @@ class SignUpView(CreateView):
 
 
 class UserEditView(UpdateView):
+    """
+    ویرایش کاربر
+    """
+
     form_class = CustomUserChangeForm
     template_name = 'profile/edit_profile.html'
     success_url = reverse_lazy('home')
 
     def get_object(self, queryset=None):
+        """
+        :return: مشخصات کاربر
+        """
+
         return self.request.user
 
 
@@ -78,3 +86,23 @@ class StaffPanel(TemplateView):
     پنل کارمند
     """
     template_name = "staff/staff.html"
+
+
+class CustomerView(LoginRequiredMixin, ListView):
+    """
+    مشتریان
+    """
+
+    model = CustomUser
+    context_object_name = 'customers'
+    template_name = 'staff/customers.html'
+    queryset = CustomUser.objects.filter(is_staff=False)
+
+
+class MyAddressView(LoginRequiredMixin, DetailView):
+    """
+    آدرس های کاربر
+    """
+
+    model = ShippingAddress
+    template_name = 'profile/my_addresses.html'

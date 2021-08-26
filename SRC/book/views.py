@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from book.forms import BookCreationForm, CategoryCreationForm
 from book.models import Category, Book
@@ -62,6 +62,27 @@ class StoreroomView(LoginRequiredMixin, ListView):
     model = Book
     context_object_name = 'book_storeroom'
     template_name = 'staff/storeroom.html'
+
+
+class BookEditView(UpdateView):
+    """
+    ویرایش کتاب
+    """
+
+    model = Book
+    template_name = 'book/book_edit.html'
+    fields = ['name', 'author', 'price', 'category', 'stock', 'description', 'image']
+    success_url = reverse_lazy('storeroom')
+
+
+class BookDeleteView(DeleteView):
+    """
+    حذف کتاب
+    """
+
+    model = Book
+    template_name = 'book/book_delete.html'
+    success_url = reverse_lazy('storeroom')
 
 
 def search_bar(request):

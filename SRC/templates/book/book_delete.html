@@ -1,0 +1,16 @@
+{% extends 'staff/staff.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/staff.css' %}">
+{% endblock %}
+{% block title %}حذف کتاب{% endblock title %}
+{% block book %}
+    <h2>حذف</h2>
+    <h4>شما در حال حذف کتاب {{ book.name}} هستید !!</h4>
+    <form method="post" class="form-control col-md-auto" accept-charset="utf-8" enctype="multipart/form-data">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">حذف</button>
+    </form>
+
+{% endblock book %}

@@ -1,39 +1,36 @@
-{% extends 'staff/staff.html' %}
+{% extends '_base.html' %}
 {% load static %}
 {% block stylesheet %}
-
-    <link rel="stylesheet" href="{% static 'css/staff.css' %}">
-    <link rel="stylesheet" href="{% static 'css/storeroom.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 {% endblock %}
 {% block title %}
-    انبار
-{% endblock %}
-{% block storeroom %}
-    <h2 class="card card-body text-center">انبار</h2>
+    آدرس های من
+{% endblock title %}
+{% block content %}
+     <h2 class="card card-body text-center">آدرس های من</h2>
     <div class="container">
         <div class="container mt-3">
             <div class="card card-body storeroom">
                 <table class="table table-hover text-right">
                     <thead>
                     <tr>
+
+                        <th scope="col">شهر</th>
+                        <th scope="col">آدرس پستی</th>
                         <th scope="col"></th>
-                        <th scope="col">تاریخ ثبت</th>
-                        <th scope="col">موجودی</th>
-                        <th scope="col">نویسنده</th>
-                        <th scope="col">عنوان</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for book in book_storeroom %}
+                    {% for address in object %}
                         <tr>
                             <th scope="row">
                                 <a href="{% url 'book_delete' book.slug %}" class="btn btn-danger">حذف</a>
                                 <a href="{% url 'book_edit' book.slug %}" class="btn btn-warning">ویرایش</a>
                             </th>
-                            <td class="editable">{{ book.created }}</td>
-                            <td class="editable" >{{ book.stock }}</td>
-                            <td class="editable" >{{ book.author }}</td>
-                            <td class="editable" >{{ book.name }}</td>
+                            <td class="editable">{{ object.city}}</td>
+                            <td class="editable" >{{ object.address }}</td>
+                            <td class="editable" ></td>
+
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -42,4 +39,4 @@
         </div>
     </div>
 
-{% endblock storeroom %}
+{% endblock content %}
