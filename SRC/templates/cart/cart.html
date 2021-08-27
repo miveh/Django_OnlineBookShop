@@ -2,46 +2,92 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block stylesheet %}
-    <link rel="stylesheet" href="{% static 'css/staff.css' %}">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+    <link rel="stylesheet" href="{% static 'cart.css' %}">
 {% endblock %}
 {% block title %}سبد خرید من{% endblock title %}
 {% block content %}
-    <h1 class="text-center">سبد خرید من</h1>
-<div class="row">
-    <div class="container col-12 col-md-10">
-        <div class="container mt-3">
-            <div class="card card-body storeroom">
-                <table class="table table-hover text-right">
-                    <thead>
-                    <tr>
-                        <th scope="col"></th>
-                        <th scope="col">قیمت کل</th>
-                        <th scope="col">قیمت واحد</th>
-                        <th scope="col">تعداد</th>
-                        <th scope="col">کتاب</th>
-                        <th scope="col">تصویر</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for item in my_items %}
-                        <tr>
-                            <th scope="row">
-                                <a href="" class="btn btn-danger">حذف</a>
-                                <a href="" class="btn btn-warning">ویرایش</a>
-                            </th>
-                            <td class="editable">{{ item.total_price }}</td>
-                            <td class="editable">{{ item.book.total_price }}</td>
-                            <td class="editable">{{ item.quantity }}</td>
-                            <td class="editable">{{ item.book }}</td>
-                            <td class="editable"><img class="card-img-top col-6" src="{{ item.book.image.url }}" alt="Card image cap"></td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+    <div class="row">
+        <div class="container ">
+            <div class="container mt-3">
+                <div class="card card-body storeroom">
+                    <div class="container pb-5 mt-n2 mt-md-n3">
+                        <div class="row">
+                            <div class="col-xl-9 col-md-8">
+                                <h2 class="h6 d-flex flex-wrap justify-content-between align-items-center px-4 py-3 bg-secondary">
+                                    <span>کتاب ها</span></h2>
+
+                                   {% if my_items %}
+
+
+                                    {% for item in my_items %}
+                                        <!-- Item-->
+                                        <div class="d-sm-flex justify-content-between my-4 pb-4 border-bottom">
+                                    <div class="media d-block d-sm-flex text-center text-sm-left">
+                                        <div class="cart-item-thumb mx-auto mr-sm-4" href=""><img height="240px" width="200px"
+                                                src="{{ item.book.image.url }}"
+                                                alt="Product"></div>
+                                        <div class="media-body pt-3 text-right pr-4">
+                                            <h3 class="product-card-title font-weight-semibold border-0 pb-0"><a
+                                                    href="{% url 'book_detail' item.book.slug %}">{{ item.book.name }}</a></h3>
+                                            <div class="font-size-sm"><span class="text-muted mr-2">نویسنده:</span>{{ item.book.author }}
+                                            </div>
+
+                                            <div class="font-size-lg text-primary pt-2"><del>{{ item.book.price }}</del>&nbsp;<span>تومان</span></div>
+                                            <div class="h4 text-primary pt-2"><span>{{ item.book.total_price }}</span>&nbsp;<span>تومان</span></div>
+                                        </div>
+                                    </div>
+                                     <form action="{% url 'quantity' item.book.slug %}" method="post">
+                                         {% csrf_token %}
+                                        <div class="pt-2 pt-sm-0 pl-sm-3 mx-auto mx-sm-0 text-center text-sm-left"
+                                         style="max-width: 10rem;">
+                                        <div class="form-group text-right mb-2">
+                                            <label for="quantity1">تعداد</label>
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-xs-3 col-xs-offset-3">
+                                                        <div class="input-group number-spinner">
+
+                                                                <button name="plus_quantity"  type="submit" class="btn btn-default" data-dir="dwn"><i class="fas fa-plus"></i></button>
+                                                                <input readonly="readonly" type="text" class="form-control text-center" value="{{ item.quantity }}">
+                                                                <button name="minus_quantity" type="submit" class="btn btn-default" data-dir="up"><i class="fas fa-minus"></i></button>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="{% url 'cart_remove' item.book.slug %}" class="btn btn-outline-danger btn-sm btn-block mb-2">حذف</a>
+                                        <a href="" class="btn btn-outline-info btn-sm btn-block mb-2"><p
+                                                style="font-size: 12px;padding-top: 11px">ذخیره درلیست خرید بعدی</p></a>
+
+                                    </div>
+                                     </form>
+                                </div>
+                                    {% endfor %}
+                                    {% else %}
+                                       <div class="card">سبد خرید خالیست</div>
+                                {% endif %}
+
+
+                            </div>
+                            <!-- Sidebar-->
+                            <div class="col-xl-3 col-md-4 pt-3 pt-md-0">
+                                <h2 class="h6 px-4 py-3 bg-secondary text-center">قیمت نهایی</h2>
+                                <div class="h3 font-weight-semibold text-center py-3">{{ total_price_factor }}</div>
+                                <hr>
+
+                                <a class="btn btn-danger btn-block" href="#">
+                                    ثبت کد تخفیف و پرداخت</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-12 col-md-2 "></div>
-</div>
+
 {% endblock content %}
 
