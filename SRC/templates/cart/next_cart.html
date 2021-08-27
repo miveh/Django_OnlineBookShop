@@ -38,7 +38,7 @@
                                             <div class="h4 text-primary pt-2"><span>{{ item.book.total_price }}</span>&nbsp;<span>تومان</span></div>
                                         </div>
                                     </div>
-                                     <form action="{% url 'quantity' item.book.slug %}" method="post">
+                                     <form action="{% url 'quantity_next_cart' item.book.slug %}" method="post">
                                          {% csrf_token %}
                                         <div class="pt-2 pt-sm-0 pl-sm-3 mx-auto mx-sm-0 text-center text-sm-left"
                                          style="max-width: 10rem;">
@@ -59,7 +59,7 @@
                                             </div>
                                         </div>
                                         <a href="{% url 'cart_remove' item.book.slug %}" class="btn btn-outline-danger btn-sm btn-block mb-2">حذف</a>
-                                        <a href="{% url 'add_to_next_cart' item.book.slug %}" class="btn btn-outline-info btn-sm btn-block mb-2"><p
+                                        <a href="" class="btn btn-outline-info btn-sm btn-block mb-2"><p
                                                 style="font-size: 12px;padding-top: 11px">ذخیره درلیست خرید بعدی</p></a>
 
                                     </div>
