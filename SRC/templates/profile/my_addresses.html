@@ -7,36 +7,42 @@
     آدرس های من
 {% endblock title %}
 {% block content %}
-     <h2 class="card card-body text-center">آدرس های من</h2>
+    <h2 class="card card-body text-center">آدرس های من</h2>
     <div class="container">
         <div class="container mt-3">
             <div class="card card-body storeroom">
                 <table class="table table-hover text-right">
                     <thead>
                     <tr>
-
                         <th scope="col">شهر</th>
                         <th scope="col">آدرس پستی</th>
                         <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for address in object %}
+                    {% for my_address in my_addresses %}
                         <tr>
-                            <th scope="row">
-                                <a href="{% url 'book_delete' book.slug %}" class="btn btn-danger">حذف</a>
-                                <a href="{% url 'book_edit' book.slug %}" class="btn btn-warning">ویرایش</a>
-                            </th>
-                            <td class="editable">{{ object.city}}</td>
-                            <td class="editable" >{{ object.address }}</td>
-                            <td class="editable" ></td>
-
+                            <td class="editable">{{ my_address.city }}</td>
+                            <td class="editable">{{ my_address.address }}</td>
+                            {% if my_address.default_address %}
+                                <td class="" style="">
+                                    <a href="{% url 'address_edit' my_address.id %}" class="btn btn-warning">ویرایش</a>
+                                </td>
+                            {% else %}
+                                <th scope="row">
+                                    <a href="{% url 'address_delete' my_address.id %}" class="btn btn-danger">حذف</a>
+                                    <a href="{% url 'address_edit' my_address.id %}" class="btn btn-warning">ویرایش</a>
+                                </th>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
             </div>
+            <div class="row">
+                <a class="btn btn-primary m-1 col-2" href="{% url 'edit_profile' %}">بازگشت</a>
+                <a class="btn btn-primary m-1 col-2" href="{% url 'address' %}">افزودن آدرس</a>
+            </div>
         </div>
     </div>
-
 {% endblock content %}

@@ -1,8 +1,12 @@
+from pprint import pprint
+
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, TemplateView, DeleteView, ListView, DetailView
 from account.forms import CustomUserCreationForm, CustomUserChangeForm, AddressForm
 from account.models import ShippingAddress, CustomUser, Staff
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import authenticate, login
 
 
 class SignUpView(CreateView):
@@ -99,10 +103,32 @@ class CustomerView(LoginRequiredMixin, ListView):
     queryset = CustomUser.objects.filter(is_staff=False)
 
 
-class MyAddressView(LoginRequiredMixin, DetailView):
+def my_address_view(request):
     """
-    آدرس های کاربر
+    :return: آدرس های کاربر
+    """
+
+    user = request.user
+    my_addresses = ShippingAddress.objects.filter(user=user)
+    return render(request, 'profile/my_addresses.html', {'my_addresses': my_addresses})
+
+
+class AddressEditView(UpdateView):
+    """
+    ویرایش آدرس
     """
 
     model = ShippingAddress
-    template_name = 'profile/my_addresses.html'
+    template_name = 'profile/address_edit.html'
+    fields = ['city', 'address']
+    success_url = reverse_lazy('my_addresses')
+
+
+class AddressDeleteView(DeleteView):
+    """
+    حذف آدرس
+    """
+
+    model = ShippingAddress
+    template_name = 'profile/address_delete.html'
+    success_url = reverse_lazy('my_addresses')

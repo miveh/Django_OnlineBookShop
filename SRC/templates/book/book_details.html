@@ -30,10 +30,30 @@
 
                                 </h2>
                                 <hr/>
-                                <h3 class="price-container">
-                                    {{ object.price }}
-                                    <small>تومان</small>
-                                </h3>
+                                {% if book.bookcashcoupon_set.all %}
+                                        <del class="price-container" style="color: darkgray">
+                                            <span>{{ book.price }}</span><span>هزارتومان</span>
+                                        </del>
+                                        <span class="tag1"></span>
+                                        <p class="price-container" >
+                                            <span>{{ book.total_price }}</span><span>هزارتومان</span>
+                                        </p>
+                                        <span class="tag1"></span>
+                                    {% elif book.bookcashcoupon_set.all %}
+                                        <del class="price-container" style="color: darkgray">
+                                            <span>{{ book.price }}</span><span>هزارتومان</span>
+                                        </del>
+                                        <span class="tag1"></span>
+                                        <p class="price-container" >
+                                            <span>{{ book.total_price }}</span><span>هزارتومان</span>
+                                        </p>
+                                        <span class="tag1"></span>
+                                    {% else %}
+                                        <p class="price-container">
+                                            <span>{{ book.price }}</span><span>هزارتومان</span>
+                                        </p>
+                                        <span class="tag1"></span>
+                                    {% endif %}
 
                                 <hr/>
                                 <div class="description description-tabs">
@@ -50,8 +70,14 @@
                                 <hr/>
                                 <div class="row">
                                     <div class="col-sm-12 col-md-6 col-lg-6">
-                                        <a href="javascript:void(0);" class="btn btn-success btn-lg">افزودن به سبد
-                                            خرید</a>
+                                        {% if book.stock %}
+                                            <a href="javascript:void(0);" class="btn btn-success btn-lg">افزودن به سبد
+                                                خرید
+                                            </a>
+                                        {% else %}
+                                            <h3>ناموجود</h3>
+                                        {% endif %}
+
                                     </div>
 
                                 </div>

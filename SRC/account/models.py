@@ -63,6 +63,7 @@ class ShippingAddress(models.Model):
     """
     ایجاد یک جدول برای نگهداری تمامی آدرس ها
     """
+
     class Meta:
         verbose_name = 'آدرس'
         verbose_name_plural = 'آدرس ها'

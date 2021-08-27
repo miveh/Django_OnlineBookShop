@@ -14,8 +14,11 @@
         {{ form.national_code | as_crispy_field }}
         <button type="submit" class="btn">ویرایش</button>
     </form>
-    <a class="btn btn-primary address-btn" href="{% url 'address' %}">افزودن آدرس</a><br>
-    <a class="btn btn-primary password-btn" href="{% url 'password_change' %}">تغییر پسوورد</a>
-    <a class="btn btn-primary password-btn" href="{% url 'my_addresses' %}">آدرس های من</a>
+    <div class="row">
+
+        <a class="btn btn-primary m-1 col-2" href="{% url 'password_change' %}">تغییر پسوورد</a><br>
+        <a class="btn btn-primary m-1 col-2" href="{% url 'my_addresses' %}">آدرس های من</a>
+        <a href="{% url 'home' %}" class="btn btn-primary m-1 col-2">بازگشت</a>
+    </div>
 
 {% endblock content %}
