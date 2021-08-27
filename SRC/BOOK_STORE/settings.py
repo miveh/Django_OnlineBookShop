@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'account',
     'book',
     'coupon',
+    'cart',
 
     # پکیج های استفاده شده
     'crispy_forms',
@@ -73,7 +74,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
 
-                # این پروسسور چند کوئری ست برای نمایش دسته ها و کتابها در هدر سایت برمی کگرداند.
+                # این پروسسور چند کوئری ست برای نمایش دسته ها و کتابها در هدر سایت برمی گرداند.
                 'book.context_processors.categories',
             ],
         },
