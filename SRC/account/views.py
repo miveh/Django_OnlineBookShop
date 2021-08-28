@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, TemplateView, DeleteView, ListView, DetailView
 from account.forms import CustomUserCreationForm, CustomUserChangeForm, AddressForm
 from account.models import ShippingAddress, CustomUser, Staff
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth import authenticate, login
 
 
@@ -36,6 +36,7 @@ class SignUpView(CreateView):
             print("Oops! An exception has occurred:", error)
 
         return super(SignUpView, self).form_valid(form)
+        # return redirect(self.success_url)
 
 
 class UserEditView(UpdateView):
@@ -85,14 +86,15 @@ class CreateAddressView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class StaffPanel(TemplateView):
+class StaffPanel(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     """
     پنل کارمند
     """
     template_name = "staff/staff.html"
+    permission_required = 'book.add_book'
 
 
-class CustomerView(LoginRequiredMixin, ListView):
+class CustomerView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """
     مشتریان
     """
@@ -101,6 +103,7 @@ class CustomerView(LoginRequiredMixin, ListView):
     context_object_name = 'customers'
     template_name = 'staff/customers.html'
     queryset = CustomUser.objects.filter(is_staff=False)
+    permission_required = 'book.add_book'
 
 
 def my_address_view(request):

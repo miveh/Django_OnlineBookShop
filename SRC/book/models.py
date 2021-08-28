@@ -4,16 +4,6 @@ from django.urls import reverse
 from slugify import slugify
 
 
-# class CategoryManager(models.Manager):
-#
-#     def get_not_null_category(self):
-#         """
-#         :return: تمامی دسته بندی هایی که شامل کتاب هستند.
-#         """
-#         null_category = Category.objects.exclude(book__isnull=True)
-#         return null_category
-
-
 class Category(models.Model):
     """
     ایجاد یک کلاس برای ساخت جدولی از دسته بندی کتابها
@@ -25,7 +15,6 @@ class Category(models.Model):
 
     category = models.CharField(max_length=40, unique=True)
     slug = models.SlugField(unique=True, blank=True)
-    # objects = CategoryManager()
 
     def save(self, *args, **kwargs):
         """

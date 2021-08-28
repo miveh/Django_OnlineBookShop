@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -34,7 +34,7 @@ class BookDetailView(DetailView):
     template_name = 'book/book_details.html'
 
 
-class BookCreationView(LoginRequiredMixin, CreateView):
+class BookCreationView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     """
     ایجاد کتاب
     """
@@ -42,9 +42,10 @@ class BookCreationView(LoginRequiredMixin, CreateView):
     form_class = BookCreationForm
     template_name = 'book/book_form.html'
     success_url = reverse_lazy('staff')
+    permission_required = 'book.add_book'
 
 
-class CategoryCreationView(LoginRequiredMixin, CreateView):
+class CategoryCreationView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     """
     ایجاد دسته بندی
     """
@@ -52,9 +53,10 @@ class CategoryCreationView(LoginRequiredMixin, CreateView):
     form_class = CategoryCreationForm
     template_name = 'book/category_form.html'
     success_url = reverse_lazy('staff')
+    permission_required = 'book.add.category'
 
 
-class StoreroomView(LoginRequiredMixin, ListView):
+class StoreroomView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """
     انبار
     """
@@ -62,9 +64,10 @@ class StoreroomView(LoginRequiredMixin, ListView):
     model = Book
     context_object_name = 'book_storeroom'
     template_name = 'staff/storeroom.html'
+    permission_required = 'book.view_book'
 
 
-class BookEditView(UpdateView):
+class BookEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     """
     ویرایش کتاب
     """
@@ -73,9 +76,10 @@ class BookEditView(UpdateView):
     template_name = 'book/book_edit.html'
     fields = ['name', 'author', 'price', 'category', 'stock', 'description', 'image']
     success_url = reverse_lazy('storeroom')
+    permission_required = 'book.edit_book'
 
 
-class BookDeleteView(DeleteView):
+class BookDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     """
     حذف کتاب
     """
@@ -83,6 +87,7 @@ class BookDeleteView(DeleteView):
     model = Book
     template_name = 'book/book_delete.html'
     success_url = reverse_lazy('storeroom')
+    permission_required = 'book.delete_book'
 
 
 def search_bar(request):

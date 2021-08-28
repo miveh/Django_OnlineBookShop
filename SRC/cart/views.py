@@ -1,9 +1,8 @@
 import datetime
 
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView
 
 from account.models import ShippingAddress
@@ -67,6 +66,10 @@ class NextCartView(LoginRequiredMixin, ListView):
 
 
 class HistoryListView(LoginRequiredMixin, ListView):
+    """
+    نمتایش خلاصه ای از تمام خرید های کاربر
+    """
+
     model = FinalizedOrders
     template_name = 'cart/history.html'
     context_object_name = 'factors'
@@ -167,6 +170,7 @@ def return_to_cart(request, slug):
     return redirect('next_cart')
 
 
+@login_required()
 def return_all_to_cart(request):
     """
     بازگردانی همه ی لیست خرید بعدی به سبد خرید
@@ -182,6 +186,7 @@ def return_all_to_cart(request):
     return redirect('next_cart')
 
 
+@login_required()
 def remove_from_cart(request, slug):
     """
     :param request: 😑
@@ -198,6 +203,7 @@ def remove_from_cart(request, slug):
     return redirect('cart')
 
 
+@login_required()
 def remove_from_next_cart(request, slug):
     """
     :param request: 😑
@@ -214,6 +220,7 @@ def remove_from_next_cart(request, slug):
     return redirect('next_cart')
 
 
+@login_required()
 def quantity(request, slug):
     """
     افزایش تعداد دلخواه از کتاب در سبد خرید به شرط داشتن موجودی کافی از کتاب کاهش تعداد دلخواه از کتاب در سبد خرید تا رسیدن به تعداد 1
@@ -247,6 +254,7 @@ def quantity(request, slug):
     return redirect('cart')
 
 
+@login_required()
 def quantity_next_cart(request, slug):
     """
     افزایش تعداد دلخواه از کتاب در سبد خرید به شرط داشتن موجودی کافی از کتاب کاهش تعداد دلخواه از کتاب در سبد خرید تا رسیدن به تعداد 1
@@ -280,6 +288,7 @@ def quantity_next_cart(request, slug):
     return redirect('cart')
 
 
+@login_required()
 def create_factor(request):
     """
     ایجاد یک فاکتور خرید از سبد کاربر با ادرس
@@ -311,7 +320,7 @@ def create_factor(request):
             for item in order_items:  # بیا هر ایتم رو وضعیت سفارش رو به تمام شده تغییر بده.
                 finalized_obj.item.add(item)  # ایتم ها رو به فاکتور اضافه کن
             finalized_obj.save()
-            finalized_obj_id = finalized_obj.id
+            # finalized_obj_id = finalized_obj.id
             # context['price'] = price
             # context['finalized_obj_id'] = finalized_obj_id
             context['finalized_obj'] = finalized_obj
@@ -324,6 +333,7 @@ def create_factor(request):
             return render(request, 'cart', {'no_stock': no_stock})
 
 
+@login_required()
 def save_coupon_to_factor(request):
     """
     اعمال کد تخفیف
@@ -364,6 +374,7 @@ def save_coupon_to_factor(request):
     return render(request, 'cart/payment.html', context)
 
 
+@login_required()
 def success(request):
     """
     پرداخت

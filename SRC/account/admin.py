@@ -16,8 +16,8 @@ class CustomerAdmin(admin.ModelAdmin):
         )
 
     fields = ['email', 'password', 'first_name', 'last_name', 'national_code', 'is_staff', 'is_active', 'groups',
-              'user_permissions']
-    list_display = ['email', 'is_active', 'first_name', 'last_name', 'edit_btn']
+              'user_permissions', 'device']
+    list_display = ['email', 'is_active', 'first_name', 'last_name', 'device', 'edit_btn']
     search_fields = ['email']
     date_hierarchy = 'last_login'
     list_editable = ['is_active']
@@ -41,8 +41,8 @@ class StaffAdmin(admin.ModelAdmin):
         )
 
     fields = ['email', 'password', 'first_name', 'last_name', 'last_login', 'is_staff', 'is_active', 'groups',
-              'user_permissions']
-    list_display = ['email', 'is_staff', 'is_active', 'last_login', 'edit_btn']
+              'user_permissions', 'device']
+    list_display = ['email', 'is_staff', 'is_active', 'last_login', 'device', 'edit_btn']
     search_fields = ['email']
     list_editable = ['is_active', 'is_staff']
     list_display_links = ['edit_btn']
@@ -58,7 +58,7 @@ class CustomUserAdmin(admin.ModelAdmin):
     این کلاس برای جدا کردن super users از سایر کاربران است.
     """
 
-    list_display = ['email', 'is_active', 'last_login']
+    list_display = ['email', 'is_active', 'last_login', 'device']
 
     def get_queryset(self, request):
         return CustomUser.objects.filter(is_superuser=True)

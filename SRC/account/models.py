@@ -13,6 +13,7 @@ class CustomUser(AbstractUser):
         verbose_name_plural = 'مدیران'
 
     username = None
+    device = models.CharField(max_length=200, null=True, blank=True)
     national_code = models.CharField(verbose_name='کدملی', max_length=10, default=0)
     email = models.EmailField(verbose_name='ایمیل', unique=True)
     first_name = models.CharField(verbose_name='نام', max_length=150, blank=True)
