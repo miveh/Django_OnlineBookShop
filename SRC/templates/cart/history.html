@@ -1,0 +1,49 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block stylesheet %}
+
+    <link rel="stylesheet" href="{% static 'css/storeroom.css' %}">
+{% endblock %}
+{% block title %}
+    فاکتور های من
+{% endblock %}
+{% block content %}
+    <h2 class="card card-body text-center">فاکتورهای من</h2>
+    <div class="container">
+        <div class="container mt-3">
+            <div class="card card-body storeroom">
+                <table class="table table-hover text-right">
+                    <thead style="background: #957DAD">
+                    <tr>
+
+                        <th scope="col"> آدرس تحویل</th>
+                        <th scope="col">تخفیف سبد خرید</th>
+                        <th scope="col">مبلغ پرداخت شده</th>
+                        <th scope="col">تاریخ</th>
+                        <th scope="col">عنوان ککتاب ها</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for factor in factors %}
+                        <tr>
+                            <td class="editable">{{ factor.shipping_address.city }}،{{ factor.shipping_address.address}}</td>
+                            <td class="editable" >{{ factor.discount }}<span>درصد</span></td>
+                            <td class="editable" >{{ factor.factor_total_price }}<span>تومان</span></td>
+                            <td class="editable" >{{ factor.created}}</td>
+                            <td>
+                                {% for item  in factor.item.all  %}
+                                    <span>{{ item.book.name }}</span><br>
+                                    <hr>
+                                {% endfor %}
+
+                            </td>
+                            </tr>
+
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

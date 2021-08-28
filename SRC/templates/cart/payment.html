@@ -1,0 +1,57 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/payment.css' %}">
+    <title>پرداخت</title>
+</head>
+<body>
+<div class="container mt-5">
+    <div class="card card-body mt-5">
+        <div class="container">
+            <form action="{% url 'save_coupon_to_factor' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" value="{{ finalized_obj.id }}" name="finalized_obj_id">
+                <label class="col-4" for="1213">قیمت کل:</label><br>
+                <div class="card" style="background: cadetblue">
+                    <input id="1213" class="form-control-plaintext text-center" type="text"
+                           readonly="readonly"
+                           value="{{ finalized_obj.factor_total_price }}">
+                </div>
+                <hr>
+                <label for="coupon123">کد تخفیف را اینجا وارد کنید</label><br>
+                <input class="col-2 p-2" type="text" name="coupon" id="coupon123"><br><br>
+                <button style="padding-bottom: 6px !important;" class="btn btn-success p-2 col-2" type="submit">ثبت
+                </button>
+            </form>
+            <hr>
+            <form action="{%  url 'success' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" value="{{ finalized_obj.id }}" name="finalized_obj_id">
+                <button class="btn btn-danger p-2 col-2" type="submit">پرداخت</button>
+            </form>
+        </div>
+    </div>
+    <br>
+    <a class="btn btn-primary  col-2" href="{% url 'cart' %}">بازگشت به سبد خرید</a>
+</div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+</html>
+

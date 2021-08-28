@@ -1,0 +1,114 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/payment.css' %}">
+    <title>پرداخت</title>
+</head>
+<body>
+<div class="container">
+   <div class="row">
+      <div class="col-md-6 mx-auto mt-5">
+         <div class="payment">
+            <div class="payment_header">
+               <div class="check"><i class="fa fa-check" aria-hidden="true"></i></div>
+            </div>
+            <div class="content">
+               <h1>پرداخت با موفقیت انجام شد !</h1><br><br>
+
+               <a href="{% url 'home' %}">بازگشت به صفحه اصلی</a>
+            </div>
+
+         </div>
+      </div>
+   </div>
+</div>
+<!-- Optional JavaScript -->
+<style type="text/css">
+
+    body
+    {
+        background:#f2f2f2;
+    }
+
+    .payment
+	{
+		border:1px solid #f2f2f2;
+		height:280px;
+        border-radius:20px;
+        background:#fff;
+	}
+   .payment_header
+   {
+	   background:rgba(255,102,0,1);
+	   padding:20px;
+       border-radius:20px 20px 0px 0px;
+
+   }
+
+   .check
+   {
+	   margin:0px auto;
+	   width:50px;
+	   height:50px;
+	   border-radius:100%;
+	   background:#fff;
+	   text-align:center;
+   }
+
+   .check i
+   {
+	   vertical-align:middle;
+	   line-height:50px;
+	   font-size:30px;
+   }
+
+    .content
+    {
+        text-align:center;
+    }
+
+    .content  h1
+    {
+        font-size:25px;
+        padding-top:25px;
+    }
+
+    .content a
+    {
+        width:200px;
+        height:35px;
+        color:#fff;
+        border-radius:30px;
+        padding:5px 10px;
+        background:rgba(255,102,0,1);
+        transition:all ease-in-out 0.3s;
+    }
+
+    .content a:hover
+    {
+        text-decoration:none;
+        background:#000;
+    }
+
+</style>
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+</html>
+
