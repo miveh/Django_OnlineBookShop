@@ -18,6 +18,7 @@ class CustomUser(AbstractUser):
     email = models.EmailField(verbose_name='ایمیل', unique=True)
     first_name = models.CharField(verbose_name='نام', max_length=150, blank=True)
     last_name = models.CharField(verbose_name='نام خانوادگی', max_length=150, blank=True)
+    is_anonymous_user = models.BooleanField(verbose_name='کاربرناشناس', default=False)
     is_staff = models.BooleanField(
         verbose_name='کارمند',
         default=False,

@@ -2,10 +2,22 @@
 {% load crispy_forms_tags %}
 {% block title %}ورود{% endblock title %}
 {% block content %}
-    <h2>ورود</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form | crispy }}
-        <button class="btn btn-" type="submit">ورود</button>
-    </form>
+    <h2 class="card text-center card-header">ورود</h2>
+    <div class="container mt-5">
+        <div class="container mt-5">
+            <div class="container">
+                 <div class="card card-body">
+            <div class="container mt-5">
+                <form method="post" class="text-right">
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                    <button class="btn btn-success" type="submit">ورود</button>
+                    <a class="btn btn-primary m-1 col-2 " href="{% url 'password_reset' %}">فراموشی رمزعبور</a>
+                </form>
+            </div>
+        </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock content %}

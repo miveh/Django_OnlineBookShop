@@ -32,13 +32,12 @@
         }
 
 
-        function uuidv4(){
+        function uuidv4() {
             return 'xxxxxxxx-xxxx-4xxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
                 var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
                 return v.toString(16)
             })
         }
-
 
 
         let device = getCookie('device')
@@ -120,7 +119,7 @@
                             <a class="dropdown-item" href="{% url 'logout' %}">خروج از حساب کاربری</a>
                             <div class="dropdown-divider"></div>
 
-                             <a class="dropdown-item" href="{% url 'cart' %}">سبد خرید</a>
+                            <a class="dropdown-item" href="{% url 'cart' %}">سبد خرید</a>
                             <div class="dropdown-divider"></div>
 
                             <a class="dropdown-item" href="{% url 'history' %}">تاریخچه سفارشات</a>
@@ -152,6 +151,9 @@
                     </li>
                 {% endif %}
             {% else %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'cart' %}" style="margin-left: -59px;">سبدخرید <span class="sr-only">(current)</span></a>
+                </li>
 
                 <li class="nav-item active">
                     <a class="nav-link" href="{% url 'login' %}" style="margin-left: -59px;">ورود <span class="sr-only">(current)</span></a>

@@ -1,11 +1,14 @@
 import datetime
+import random
+import string
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView
 
-from account.models import ShippingAddress
+from account.models import ShippingAddress, CustomUser
 from book.models import Book
 from cart.models import CartItems, Cart, FinalizedOrders
 from coupon.models import CartCoupon
@@ -80,11 +83,10 @@ class HistoryListView(LoginRequiredMixin, ListView):
         """
 
         queryset = super(HistoryListView, self).get_queryset()
-        queryset = queryset.filter(cart=Cart.objects.get(user=self.request.user) )
+        queryset = queryset.filter(cart=Cart.objects.get(user=self.request.user))
         return queryset
 
 
-@login_required
 def add_to_cart(request, slug):
     """
     :param request: 😐
@@ -93,9 +95,9 @@ def add_to_cart(request, slug):
     """
 
     book = get_object_or_404(Book, slug=slug)
+    device = request.COOKIES['device']
     cart_qs = CartItems.objects.filter(book=book, ordered='O',
                                        cart=Cart.objects.get(user=request.user))
-
     if cart_qs.exists():
         cart_item = cart_qs[0]
         if cart_item.book.stock <= cart_item.quantity:
@@ -158,7 +160,7 @@ def return_to_cart(request, slug):
 
     if cart_qs.exists():
         cart_item = cart_qs[0]
-        if cart_item.book.stock <= cart_item.quantity:
+        if cart_item.book.stock < cart_item.quantity:
             pass
         else:
             cart_item.ordered = 'O'
@@ -299,6 +301,7 @@ def create_factor(request):
     no_stock = False
     context = {}
     order_list = []
+
     if request.method == 'POST':
         address_id = request.POST.get('address_select')
         price = str(request.POST.get('price'))
@@ -320,17 +323,13 @@ def create_factor(request):
             for item in order_items:  # بیا هر ایتم رو وضعیت سفارش رو به تمام شده تغییر بده.
                 finalized_obj.item.add(item)  # ایتم ها رو به فاکتور اضافه کن
             finalized_obj.save()
-            # finalized_obj_id = finalized_obj.id
-            # context['price'] = price
-            # context['finalized_obj_id'] = finalized_obj_id
             context['finalized_obj'] = finalized_obj
             return render(request, 'cart/payment.html', context)
 
         elif len(order_list) > 0:  # اگر کتابی ناموجود بود
-            no_stock = True
             for order in order_list:
                 order.delete()
-            return render(request, 'cart', {'no_stock': no_stock})
+            return redirect('cart')
 
 
 @login_required()
@@ -353,14 +352,19 @@ def save_coupon_to_factor(request):
         coupon_qs = CartCoupon.objects.filter(code=coupon_code)
         if coupon_qs.exists():
             coupon = coupon_qs[0]
-            # تاریخ اعتبارش چک بشه
-            now = datetime.datetime.now()
-            if (now > coupon.valid_from.replace(tzinfo=None)) and (now < coupon.valid_to.replace(tzinfo=None)):  # چک می کنه کد تخفیف اعتبار داشته باشه
-                if finalized_obj.discount == 0:  # چک میکنه سبد کد تخفیف نداشته باشه
-                    finalized_obj.discount = coupon.discount_percent
-                    finalized_obj.save()
-                    context['finalized_obj'] = finalized_obj
-                    context['finalized_obj_id'] = finalized_obj_id
+            # تاریخ و اعتبارش چک بشه
+            if coupon.is_active:
+                now = datetime.datetime.now()
+                if (now > coupon.valid_from.replace(tzinfo=None)) and (
+                        now < coupon.valid_to.replace(tzinfo=None)):  # چک می کنه کد تخفیف اعتبار داشته باشه
+                    if finalized_obj.discount == 0:  # چک میکنه سبد کد تخفیف نداشته باشه
+                        finalized_obj.discount = coupon.discount_percent
+                        finalized_obj.save()
+                        context['finalized_obj'] = finalized_obj
+                        context['finalized_obj_id'] = finalized_obj_id
+                    else:
+                        context['finalized_obj'] = finalized_obj
+                        context['finalized_obj_id'] = finalized_obj_id
                 else:
                     context['finalized_obj'] = finalized_obj
                     context['finalized_obj_id'] = finalized_obj_id

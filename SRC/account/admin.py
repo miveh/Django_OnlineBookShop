@@ -15,12 +15,13 @@ class CustomerAdmin(admin.ModelAdmin):
             '<span class="button" style="background: orange">ویرایش</span>'
         )
 
-    fields = ['email', 'password', 'first_name', 'last_name', 'national_code', 'is_staff', 'is_active', 'groups',
-              'user_permissions', 'device']
-    list_display = ['email', 'is_active', 'first_name', 'last_name', 'device', 'edit_btn']
-    search_fields = ['email']
+    fields = ['email', 'password', 'first_name', 'last_name', 'national_code', 'is_staff', 'is_active',
+              'is_anonymous_user', 'groups', 'user_permissions', 'device']
+
+    list_display = ['email', 'is_active', 'is_anonymous_user', 'first_name', 'last_name', 'device', 'edit_btn']
+    search_fields = ['email', 'first_name', 'last_name']
     date_hierarchy = 'last_login'
-    list_editable = ['is_active']
+    list_editable = ['is_active', 'first_name', 'last_name']
     list_display_links = ['edit_btn']
     list_filter = ['is_active']
 

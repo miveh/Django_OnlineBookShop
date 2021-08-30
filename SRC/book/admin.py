@@ -3,6 +3,10 @@ from django.utils.html import format_html
 from book.models import Book, Category
 
 
+class CategoryInline(admin.TabularInline):
+    model = Book.category.through
+
+
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
     """
@@ -15,7 +19,7 @@ class BookAdmin(admin.ModelAdmin):
             '<span class="button" style="background: orange">ویرایش</span>'
         )
 
-    fields = ['name', 'author', 'stock', 'price', 'image', 'description', 'slug', 'category']
+    fields = ['name', 'author', 'stock', 'price', 'image', 'description', 'category']
     list_display = ['name', 'author', 'stock', 'price', 'image', 'edit_btn']
     search_fields = ['name']
     list_editable = ['stock', 'price']
@@ -34,7 +38,8 @@ class CategoryAdmin(admin.ModelAdmin):
             '<span class="button" style="background: orange">ویرایش</span>'
         )
 
-    fields = ['category', 'slug']
+    fields = ['category']
     list_display = ['category', 'edit_btn']
     search_fields = ['category']
     list_display_links = ['edit_btn']
+    inlines = [CategoryInline]

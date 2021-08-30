@@ -31,29 +31,29 @@
                                 </h2>
                                 <hr/>
                                 {% if book.bookcashcoupon_set.all %}
-                                        <del class="price-container" style="color: darkgray">
-                                            <span>{{ book.price }}</span><span>هزارتومان</span>
-                                        </del>
-                                        <span class="tag1"></span>
-                                        <p class="price-container" >
-                                            <span>{{ book.total_price }}</span><span>هزارتومان</span>
-                                        </p>
-                                        <span class="tag1"></span>
-                                    {% elif book.bookcashcoupon_set.all %}
-                                        <del class="price-container" style="color: darkgray">
-                                            <span>{{ book.price }}</span><span>هزارتومان</span>
-                                        </del>
-                                        <span class="tag1"></span>
-                                        <p class="price-container" >
-                                            <span>{{ book.total_price }}</span><span>هزارتومان</span>
-                                        </p>
-                                        <span class="tag1"></span>
-                                    {% else %}
-                                        <p class="price-container">
-                                            <span>{{ book.price }}</span><span>هزارتومان</span>
-                                        </p>
-                                        <span class="tag1"></span>
-                                    {% endif %}
+                                    <del class="price-container" style="color: darkgray">
+                                        <span>{{ book.price }}</span><span>هزارتومان</span>
+                                    </del>
+                                    <span class="tag1"></span>
+                                    <p class="price-container">
+                                        <span>{{ book.total_price }}</span><span>هزارتومان</span>
+                                    </p>
+                                    <span class="tag1"></span>
+                                {% elif book.bookcashcoupon_set.all %}
+                                    <del class="price-container" style="color: darkgray">
+                                        <span>{{ book.price }}</span><span>هزارتومان</span>
+                                    </del>
+                                    <span class="tag1"></span>
+                                    <p class="price-container">
+                                        <span>{{ book.total_price }}</span><span>هزارتومان</span>
+                                    </p>
+                                    <span class="tag1"></span>
+                                {% else %}
+                                    <p class="price-container">
+                                        <span>{{ book.price }}</span><span>هزارتومان</span>
+                                    </p>
+                                    <span class="tag1"></span>
+                                {% endif %}
 
                                 <hr/>
                                 <div class="description description-tabs">
@@ -71,15 +71,14 @@
                                 <div class="row">
                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                         {% if book.stock %}
-                                            <a href="{% url 'add_to_cart' book.slug %}" class="btn btn-success btn-lg">افزودن به سبد
-                                                خرید
-                                            </a>
+                                                <a href="{% url 'add_to_cart' book.slug %}"
+                                                   class="btn btn-success btn-lg">افزودن به سبد
+                                                    خرید
+                                                </a>
                                         {% else %}
                                             <h3>ناموجود</h3>
                                         {% endif %}
-
                                     </div>
-
                                 </div>
                             </div>
                         </div>

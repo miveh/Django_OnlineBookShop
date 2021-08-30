@@ -17,5 +17,5 @@ urlpatterns = [
     path('payment/', create_factor, name='payment'),
     path('save_coupon_to_factor/', save_coupon_to_factor, name='save_coupon_to_factor'),
     path('success', success, name='success'),
-    path('history', HistoryListView.as_view(), name='history')
+    path('history', HistoryListView.as_view(), name='history'),
 ]
