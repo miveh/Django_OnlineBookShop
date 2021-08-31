@@ -1,0 +1,31 @@
+{% extends 'staff/staff.html' %}
+{% load static %}
+{% block stylesheet %}
+
+    <link rel="stylesheet" href="{% static 'css/staff.css' %}">
+    <link rel="stylesheet" href="{% static 'css/storeroom.css' %}">
+{% endblock %}
+{% block title %}
+    انبار
+{% endblock %}
+{% block report %}
+    <div class="container">
+        <div class="container mt-3">
+            <div class="row justify-content-center" style="height: 300px">
+                <div style="background: #00AD7C" class="col-4">
+
+                </div>
+                <div style="background: #00AD7C" class="col-4"></div>
+            </div>
+            <br><br>
+            <div class="row justify-content-center" style="height: 300px">
+                <div style="background: #00AD7C" class="col-4">
+
+                </div>
+                <div style="background: #00AD7C" class="col-4"></div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock report %}

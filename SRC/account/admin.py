@@ -18,7 +18,7 @@ class CustomerAdmin(admin.ModelAdmin):
     fields = ['email', 'password', 'first_name', 'last_name', 'national_code', 'is_staff', 'is_active',
               'is_anonymous_user', 'groups', 'user_permissions', 'device']
 
-    list_display = ['email', 'is_active', 'is_anonymous_user', 'first_name', 'last_name', 'device', 'edit_btn']
+    list_display = ['email', 'is_active', 'is_anonymous_user', 'first_name', 'last_name', 'edit_btn']
     search_fields = ['email', 'first_name', 'last_name']
     date_hierarchy = 'last_login'
     list_editable = ['is_active', 'first_name', 'last_name']

@@ -1,5 +1,6 @@
 from pprint import pprint
 
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, TemplateView, DeleteView, ListView, DetailView
@@ -84,12 +85,14 @@ class CreateAddressView(LoginRequiredMixin, CreateView):
             print("Oops! An exception has occurred:  {self.request.user}", error)
 
         return super().form_valid(form)
+        # return HttpResponseRedirect(self.get_success_url())
 
 
 class StaffPanel(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     """
     پنل کارمند
     """
+
     template_name = "staff/staff.html"
     permission_required = 'book.add_book'
 

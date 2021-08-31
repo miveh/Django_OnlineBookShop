@@ -68,21 +68,28 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-{#                                                <a class="dropdown-item" href="{% url '' %}">سفارشات</a>#}
-{#                                                <div class="dropdown-divider"></div>#}
+                                                <a class="dropdown-item" href="{% url 'orders_room' %}">سفارشات</a>
+                                                <div class="dropdown-divider"></div>
 {##}
-{#                                                <a class="dropdown-item" href="{% url 'storeroom' %}">فاکتورها</a>#}
-{#                                                <div class="dropdown-divider"></div>#}
+                                                <a class="dropdown-item" href="{% url 'factors_room' %}">فاکتورها</a>
+                                                <div class="dropdown-divider"></div>
 
                         <a class="dropdown-item" href="{% url 'customers' %}">کاربران</a>
                         <div class="dropdown-divider"></div>
                     </div>
                 </li>
+{#                <li class="nav-item active">#}
+{#                    <a style="color: black" class="nav-link" href="{% url 'report' %}" style="margin-left: -59px;">گزارش <span class="sr-only">(current)</span></a>#}
+{#                </li>#}
 
             </ul>
 
         </div>
     </nav>
+
+{#    {% block report %}#}
+{##}
+{#    {% endblock report %}#}
 
     {% block coupon %}
     {% endblock coupon %}

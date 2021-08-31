@@ -1,0 +1,47 @@
+{% extends 'staff/staff.html' %}
+{% load static %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/staff.css' %}">
+    <link rel="stylesheet" href="{% static 'css/storeroom.css' %}">
+{% endblock %}
+{% block title %}
+    مشتریان
+{% endblock %}
+{% block storeroom %}
+    <h2 class="card card-body text-center">مشتریان</h2>
+    <div class="container card card-body storeroom">
+        <table class="table table-hover text-right">
+            <thead>
+            <tr>
+                <th scope="col">آدرس</th>
+                <th scope="col">تخفیف</th>
+                <th scope="col">شناسه سبد</th>
+                <th scope="col">مبلغ کل</th>
+                <th scope="col">تاریخ ایجاد</th>
+                <th scope="col">وضعیت پرداخت</th>
+                <th scope="col">پرداخت کل</th>
+                <th scope="col">کتاب های خریداری شده</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for factor in factors %}
+                <tr>
+                    <td class="editable">{{ factor.shipping_address.city }},{{ factor.shipping_address.address }}</td>
+                    <td class="editable">{{ factor.discount }}</td>
+                    <td class="editable">{{ factor.cart.id }}</td>
+                    <td class="editable">{{ factor.price }}</td>
+                    <td class="editable">{{ factor.created }}</td>
+                    <td class="editable">{{ factor.payment }}</td>
+                    <td class="editable">{{ factor.factor_total_price }}</td>
+                    <td class="editable">
+                        {% for cartitem in factor.item.all %}
+                            <span>{{ cartitem.book.name }}</span><br>
+                            <hr style="">
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock storeroom %}

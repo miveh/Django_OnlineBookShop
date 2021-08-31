@@ -88,6 +88,30 @@ class HistoryListView(LoginRequiredMixin, ListView):
         return queryset
 
 
+class FactorsView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    """
+    تمام فاکتور خریدها در پنل کارمند
+    """
+
+    model = FinalizedOrders
+    context_object_name = 'factors'
+    template_name = 'staff/factors.html'
+    queryset = FinalizedOrders.objects.all()
+    permission_required = 'book.add_book'
+
+
+class OrdersView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    """
+    تمام سفارشات در پنل کارمند
+    """
+
+    model = FinalizedOrders
+    context_object_name = 'orders'
+    template_name = 'staff/orders.html'
+    queryset = CartItems.objects.all()
+    permission_required = 'book.add_book'
+
+
 def add_to_cart(request, slug):
     """
     :param request: 😐
@@ -180,6 +204,7 @@ def return_all_to_cart(request):
     :param request: -
     :return: -
     """
+
     next_cart_item = CartItems.objects.filter(ordered='U', cart=Cart.objects.get(user=request.user))
     if next_cart_item.exists():
         for item in next_cart_item:
@@ -405,8 +430,14 @@ def success(request):
     return render(request, 'cart/success.html')
 
 
-# request.session['device'] = request.COOKIES['device']
 def add_to_session(request, slug):
+    """
+    افزودن کتاب در سبد خرید کاربری که لاگین نکرده است.
+    :param request: -
+    :param slug: -
+    :return: ماندن در صفحه ی کتاب مورد نظر
+    """
+
     book = get_object_or_404(Book, slug=slug)
 
     if request.session.test_cookie_worked():
@@ -417,19 +448,27 @@ def add_to_session(request, slug):
 
     if not 'books' in request.session or not request.session['books']:
         request.session['books'] = []
-
     book_list = request.session['books']
+
     if book.name in book_list:
         pass
     else:
         book_list.append(book.name)
         print(request.session['books'])
+
     return redirect('book_detail', slug=slug)
 
 
 def anonymous_cart(request):
+    """
+    سبد خرید فرد ناشناس
+    :param request: -
+    :return: سبد خرید فرد لاگین نکرده
+    """
+
     context = {}
     book_obj_list = []
+
     if 'books' not in request.session or not request.session['books']:
         context['my_items'] = False
     else:
@@ -446,15 +485,29 @@ def anonymous_cart(request):
 
 
 def anonymous_cart_remove(request, slug):
-    book = get_object_or_404(Book, slug=slug)
+    """
+    حذف سفارش از سبد خرید فرد ناشناس
+    :param request: -
+    :param slug: -
+    :return: -
+    """
 
+    book = get_object_or_404(Book, slug=slug)
     book_list = request.session['books']
 
     for item in book_list:
         if item == book.name:
             book_list.remove(item)
             break
-
     request.session['books'] = book_list
 
     return redirect('anonymous_cart')
+
+
+def report(request):
+    """
+    :param request: -
+    :return: صفحه ی گزارش سایت
+    """
+
+    return render(request, 'staff/report.html')

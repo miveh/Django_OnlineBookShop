@@ -6,11 +6,17 @@
 {% endblock %}
 {% block title %}تخفیف جدید{% endblock title %}
 {% block coupon %}
-    <h2>تخفیف جدید</h2>
-    <form method="post" class="form-control col-md-auto" accept-charset="utf-8" enctype="multipart/form-data">
+    <div class="container mt-5">
+    <div class="card card-body">
+        <div class="container">
+            <h2 class="text-center">تخفیف جدید</h2>
+    <form class="text-right" method="post" class="form-control col-md-auto" accept-charset="utf-8" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|crispy}}
         <button type="submit" class="btn">ایجاد</button>
     </form>
+        </div>
+    </div>
+    </div>
 
 {% endblock coupon %}

@@ -6,19 +6,25 @@
 {% endblock %}
 {% block title %}ویرایش پروفایل{% endblock title %}
 {% block content %}
-    <h2>ویرایش مشخصات</h2>
-    <form method="post" class="form-control col-md-auto">
+    <div class="container mt-5">
+        <div class="p-2 container">
+            <div class="card card-body mt-5">
+                <h2 class="text-center">ویرایش مشخصات</h2>
+    <form method="post" class="form-control col-md-auto text-right">
         {% csrf_token %}
         {{ form.first_name | as_crispy_field }}
         {{ form.last_name | as_crispy_field }}
         {{ form.national_code | as_crispy_field }}
-        <button type="submit" class="btn">ویرایش</button>
+        <button type="submit" class="btn btn-warning">ویرایش</button>
     </form>
     <div class="row">
 
         <a class="btn btn-primary m-1 col-2" href="{% url 'password_change' %}">تغییر پسوورد</a><br>
         <a class="btn btn-primary m-1 col-2" href="{% url 'my_addresses' %}">آدرس های من</a>
         <a href="{% url 'home' %}" class="btn btn-primary m-1 col-2">بازگشت</a>
+    </div>
+            </div>
+        </div>
     </div>
 
 {% endblock content %}

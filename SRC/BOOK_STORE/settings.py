@@ -174,4 +174,4 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 # برای اینکه سشن با بسته شدن بروزر از بین نرود
-SESSION_EXPIRE_AT_BROWSER_CLOSE= False
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False

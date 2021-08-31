@@ -6,11 +6,20 @@
 {% endblock %}
 {% block title %}افزودن آدرس{% endblock title %}
 {% block content %}
-    <h2>آدرس جدید</h2>
-    <form method="post" class="form-control col-md-auto">
-        {% csrf_token %}
-        {{ form | crispy}}
-        <button type="submit" class="btn">ذخیره</button>
-    </form>
-                <br><a href="{% url 'my_addresses' %}" class="btn btn-success">بازگشت</a>
+
+    <div class="container mt-5">
+        <div class="container mt-5">
+            <div class="card card-body mt-5 text-center">
+                <h2>آدرس جدید</h2>
+                <form method="post" class="form-control col-md-auto">
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                    <button type="submit" class="btn btn-warning">ذخیره</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
 {% endblock content %}

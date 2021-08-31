@@ -25,7 +25,7 @@
                     <div class="container pb-5 mt-n2 mt-md-n3">
                         <div class="row">
                             <div class="col-xl-9 col-md-8">
-                                <h2 style="background: #FFDFD3 !important;"
+                                <h2 style="background: #FFDFD3 !important;border-radius: 10px;"
                                     class="h6 d-flex flex-wrap justify-content-between align-items-center px-4 py-3 bg-secondary">
                                     <span>کتاب ها</span></h2>
 
@@ -108,7 +108,7 @@
                                         </div>
                                     {% endfor %}
                                 {% elif not my_items %}
-                                    <div class="card text-center">سبد خرید خالیست</div>
+                                    <div class=""><img height = "-moz-available;" src="{% static 'images/empty-cart.png' %}" alt=""></div>
                                 {% endif %}
 
 
@@ -116,7 +116,7 @@
                             <!-- Sidebar-->
                             <div class="col-xl-3 col-md-4 pt-3 pt-md-0">
 
-                                    <h2 style="background: #D291BC !important;"
+                                    <h2 style="background: #D291BC !important;border-radius: 10px;  "
                                         class="h6 px-4 py-3 bg-secondary text-center">، برای تجربه ی بهتر لطفا ابتدا وارد شوید.
                                     </h2>
                                     <a href="{% url 'login' %}" class="btn btn-warning btn-block" type="submit" style="margin-top: 15px">

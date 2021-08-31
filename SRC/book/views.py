@@ -76,7 +76,7 @@ class BookEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     template_name = 'book/book_edit.html'
     fields = ['name', 'author', 'price', 'category', 'stock', 'description', 'image']
     success_url = reverse_lazy('storeroom')
-    permission_required = 'book.edit_book'
+    permission_required = 'book.change_book'
 
 
 class BookDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):

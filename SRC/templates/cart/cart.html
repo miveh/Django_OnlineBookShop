@@ -26,7 +26,7 @@
                     <div class="container pb-5 mt-n2 mt-md-n3">
                         <div class="row">
                             <div class="col-xl-9 col-md-8">
-                                <h2 style="background: #FFDFD3 !important;"
+                                <h2 style="background: #FFDFD3 !important;border-radius: 10px;"
                                     class="h6 d-flex flex-wrap justify-content-between align-items-center px-4 py-3 bg-secondary">
                                     <span>کتاب ها</span></h2>
 
@@ -109,7 +109,7 @@
                                         </div>
                                     {% endfor %}
                                 {% else %}
-                                    <div class="card text-center">سبد خرید خالیست</div>
+                                    <div class=""><img height = "-moz-available;" src="{% static 'images/empty-cart.png' %}" alt=""></div>
                                 {% endif %}
 
 
@@ -118,7 +118,7 @@
                             <div class="col-xl-3 col-md-4 pt-3 pt-md-0">
                                 <form class="" method="post" action="{% url 'payment' %}">
                                     {% csrf_token %}
-                                    <h2 style="background: #D291BC !important;"
+                                    <h2 style="background: #D291BC !important;border-radius: 10px;"
                                         class="h6 px-4 py-3 bg-secondary text-center">قیمت نهایی</h2>
                                     {% if my_items %}
                                         <div class="form-group text-right">
