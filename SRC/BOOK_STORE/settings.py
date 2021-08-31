@@ -172,3 +172,6 @@ EMAIL_HOST_USER = 'zramive@gmail.com'
 EMAIL_HOST_PASSWORD = 'pgnmonrgbvwkztkf'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+# برای اینکه سشن با بسته شدن بروزر از بین نرود
+SESSION_EXPIRE_AT_BROWSER_CLOSE= False

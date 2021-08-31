@@ -1,7 +1,10 @@
 from django.contrib.auth import user_logged_in
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.shortcuts import redirect
+
 from account.models import CustomUser
+from book.models import Book
 from cart.models import Cart, CartItems
 
 
@@ -27,25 +30,29 @@ def create_user_cart(sender, instance, created, **kwargs):
 @receiver(user_logged_in)
 def post_login(sender, user, request, **kwargs):
     print('horaaaaaaaa inja signal')
-    device = request.COOKIES['device']
-    print(device)
+    book_obj_list = []
+
     try:
-        authenticated_user = request.user
-        print(authenticated_user.email)
-        anonymous_user = CustomUser.objects.filter(device=device, is_anonymous_user=True)[0]
-        print('is anonumous user:'+ anonymous_user.email)
-        if anonymous_user:
-            anonymous_cart_items = CartItems.objects.filter(cart=Cart.objects.get(user__id=anonymous_user.id))
-            print(anonymous_cart_items)
-            if anonymous_cart_items.exists():
-
-                for cart_item in anonymous_cart_items:
-                    authenticated_user_cart = Cart.objects.get(user__id=authenticated_user.id)
-                    print(authenticated_user_cart.id)
-                    cart_item.cart = authenticated_user_cart
+        book_list = request.session['books']
+        for book_name in book_list:
+            book_obj_qs = Book.objects.filter(name=book_name)
+            if book_obj_qs.exists():
+                book_obj = book_obj_qs[0]
+                cart_qs = CartItems.objects.filter(book=book_obj, ordered='O', cart=Cart.objects.get(user=request.user))
+                if cart_qs.exists():
+                    cart_item = cart_qs[0]
+                    if cart_item.book.stock <= cart_item.quantity:
+                        pass
+                    else:
+                        cart_item.quantity += 1
+                        cart_item.save()
+                else:
+                    cart_item = CartItems.objects.create(book=book_obj, ordered='O',
+                                                         cart=Cart.objects.get(user=request.user))
                     cart_item.save()
-
-            anonymous_user.delete()
+            else:
+                pass
+            book_list.remove(book_name)
     except:
         pass
 

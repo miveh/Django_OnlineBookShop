@@ -2,6 +2,7 @@ import datetime
 import random
 import string
 
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import HttpResponse
@@ -402,3 +403,58 @@ def success(request):
                 item.save()
 
     return render(request, 'cart/success.html')
+
+
+# request.session['device'] = request.COOKIES['device']
+def add_to_session(request, slug):
+    book = get_object_or_404(Book, slug=slug)
+
+    if request.session.test_cookie_worked():
+        request.session.delete_test_cookie()
+    else:
+        request.session.set_test_cookie()
+        messages.error(request, 'Please enable cookie')
+
+    if not 'books' in request.session or not request.session['books']:
+        request.session['books'] = []
+
+    book_list = request.session['books']
+    if book.name in book_list:
+        pass
+    else:
+        book_list.append(book.name)
+        print(request.session['books'])
+    return redirect('book_detail', slug=slug)
+
+
+def anonymous_cart(request):
+    context = {}
+    book_obj_list = []
+    if 'books' not in request.session or not request.session['books']:
+        context['my_items'] = False
+    else:
+        book_list = request.session['books']
+        for book_name in book_list:
+            book_obj_qs = Book.objects.filter(name=book_name)
+            if book_obj_qs.exists():
+                book_obj = book_obj_qs[0]
+                book_obj_list.append(book_obj)
+
+        context['my_items'] = book_obj_list
+
+    return render(request, 'cart/anonymous_cart.html', context)
+
+
+def anonymous_cart_remove(request, slug):
+    book = get_object_or_404(Book, slug=slug)
+
+    book_list = request.session['books']
+
+    for item in book_list:
+        if item == book.name:
+            book_list.remove(item)
+            break
+
+    request.session['books'] = book_list
+
+    return redirect('anonymous_cart')

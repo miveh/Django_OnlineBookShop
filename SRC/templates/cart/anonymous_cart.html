@@ -9,13 +9,12 @@
 {% endblock %}
 {% block title %}سبد خرید من{% endblock title %}
 {% block content %}
-{% if user.is_authenticated %}
     <div class="row">
         <div class="container ">
             <div class="container mt-3">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active" href="{% url 'cart' %}">سبد خرید</a>
+                        <a class="nav-link active" href="{% url 'anonymous_cart' %}">سبد خرید</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'next_cart' %}">لیست خرید بعدی</a>
@@ -39,39 +38,39 @@
                                             <div class="media d-block d-sm-flex text-center text-sm-left">
                                                 <div class="cart-item-thumb mx-auto mr-sm-4" href=""><img height="240px"
                                                                                                           width="200px"
-                                                                                                          src="{{ item.book.image.url }}"
+                                                                                                          src="{{ item.image.url }}"
                                                                                                           alt="Product">
                                                 </div>
                                                 <div class="media-body pt-3 text-right pr-4">
                                                     <h3 class="product-card-title font-weight-semibold border-0 pb-0"><a
-                                                            href="{% url 'book_detail' item.book.slug %}">{{ item.book.name }}</a>
+                                                            href="{% url 'book_detail' item.slug %}">{{ item.name }}</a>
                                                     </h3>
                                                     <div class="font-size-sm"><span
-                                                            class="text-muted mr-2">نویسنده:</span>{{ item.book.author }}
+                                                            class="text-muted mr-2">نویسنده:</span>{{ item.author }}
                                                     </div>
-                                                    {% if item.book.bookpercentcoupon_set.all %}
+                                                    {% if item.bookpercentcoupon_set.all %}
                                                         <div class="font-size-lg text-primary pt-2">
-                                                            <del>{{ item.book.price }}</del>&nbsp;<span>تومان</span>
+                                                            <del>{{ item.price }}</del>&nbsp;<span>تومان</span>
                                                         </div>
                                                         <div class="h4 text-primary pt-2">
-                                                            <span>{{ item.book.total_price }}</span>&nbsp;<span>تومان</span>
+                                                            <span>{{ item.total_price }}</span>&nbsp;<span>تومان</span>
                                                         </div>
-                                                    {% elif item.book.bookcashcoupon_set.all %}
+                                                    {% elif item.bookcashcoupon_set.all %}
                                                         <div class="font-size-lg text-primary pt-2">
-                                                            <del>{{ item.book.price }}</del>&nbsp;<span>تومان</span>
+                                                            <del>{{ item.price }}</del>&nbsp;<span>تومان</span>
                                                         </div>
                                                         <div class="h4 text-primary pt-2">
-                                                            <span>{{ item.book.total_price }}</span>&nbsp;<span>تومان</span>
+                                                            <span>{{ item.total_price }}</span>&nbsp;<span>تومان</span>
                                                         </div>
                                                     {% else %}
                                                         <div class="h4 text-primary pt-2">
-                                                            <span>{{ item.book.total_price }}</span>&nbsp;<span>تومان</span>
+                                                            <span>{{ item.total_price }}</span>&nbsp;<span>تومان</span>
                                                         </div>
 
                                                     {% endif %}
                                                 </div>
                                             </div>
-                                            <form action="{% url 'quantity' item.book.slug %}" method="post">
+                                            <form action="{% url 'quantity' item.slug %}" method="post">
                                                 {% csrf_token %}
                                                 <div class="pt-2 pt-sm-0 pl-sm-3 mx-auto mx-sm-0 text-center text-sm-left"
                                                      style="max-width: 10rem;">
@@ -97,18 +96,18 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <a href="{% url 'cart_remove' item.book.slug %}"
+                                                    <a href="{% url 'anonymous_cart_remove' item.slug %}"
                                                        class="btn btn-danger btn-sm btn-block mb-2">حذف</a>
-                                                    <a href="{% url 'add_to_next_cart' item.book.slug %}"
-                                                       class="btn btn-warning btn-sm btn-block mb-2"><p
-                                                            style="font-size: 12px;padding-top: 11px">ذخیره درلیست خرید
-                                                        بعدی</p></a>
+{#                                                    <a href="{% url 'add_to_next_cart' item.book.slug %}"#}
+{#                                                       class="btn btn-warning btn-sm btn-block mb-2"><p#}
+{#                                                            style="font-size: 12px;padding-top: 11px">ذخیره درلیست خرید#}
+{#                                                        بعدی</p></a>#}
 
                                                 </div>
                                             </form>
                                         </div>
                                     {% endfor %}
-                                {% else %}
+                                {% elif not my_items %}
                                     <div class="card text-center">سبد خرید خالیست</div>
                                 {% endif %}
 
@@ -116,32 +115,13 @@
                             </div>
                             <!-- Sidebar-->
                             <div class="col-xl-3 col-md-4 pt-3 pt-md-0">
-                                <form class="" method="post" action="{% url 'payment' %}">
-                                    {% csrf_token %}
+
                                     <h2 style="background: #D291BC !important;"
-                                        class="h6 px-4 py-3 bg-secondary text-center">قیمت نهایی</h2>
-                                    {% if my_items %}
-                                        <div class="form-group text-right">
-                                            <label for="exampleFormControlSelect1">انتخاب آدرس</label>
-                                            <select class="form-control" id="exampleFormControlSelect1"
-                                                    name="address_select">
-                                                {% for address in addresses %}
-                                                    <option value="{{ address.id }}">{{ address.city }}، {{ address.address }}</option>
-                                                {% endfor %}
-
-                                            </select>
-                                        </div>
-                                        <br>
-                                        <input style="padding-right: 20px" type="text" readonly="readonly"
-                                               class=" font-weight-semibold text-center py-3"
-                                               value="{{ total_price_factor }}" name="price"/><br>
-                                        <button class="btn btn-danger btn-block" type="submit" style="margin-top: 15px">
-                                            ثبت کد تخفیف و پرداخت
-                                        </button>
-                                    {% else %}
-
-                                    {% endif %}
-                                </form>
+                                        class="h6 px-4 py-3 bg-secondary text-center">، برای تجربه ی بهتر لطفا ابتدا وارد شوید.
+                                    </h2>
+                                    <a href="{% url 'login' %}" class="btn btn-warning btn-block" type="submit" style="margin-top: 15px">
+                                            ورود
+                                    </a>
                             </div>
                         </div>
                     </div>
@@ -149,7 +129,5 @@
             </div>
         </div>
     </div>
-{% endif %}
-
 {% endblock content %}
 
