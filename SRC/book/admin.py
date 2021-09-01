@@ -3,6 +3,11 @@ from django.utils.html import format_html
 from book.models import Book, Category
 
 
+@admin.action(description='no stock')
+def make_no_stock(modeladmin, request, queryset):
+    queryset.update(stock=0)
+
+
 class CategoryInline(admin.TabularInline):
     model = Book.category.through
 
@@ -24,7 +29,7 @@ class BookAdmin(admin.ModelAdmin):
     search_fields = ['name']
     list_editable = ['stock', 'price']
     list_display_links = ['edit_btn']
-
+    actions = [make_no_stock]
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):

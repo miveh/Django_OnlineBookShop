@@ -1,7 +1,11 @@
 from django.contrib import admin
 from django.utils.html import format_html
-
 from coupon.models import CartCoupon, BookCashCoupon, BookPercentCoupon
+
+
+@admin.action(description='Mark as active')
+def make_diactive(modeladmin, request, queryset):
+    queryset.update(is_active=False)
 
 
 @admin.register(CartCoupon)
@@ -21,6 +25,7 @@ class CartCouponAdmin(admin.ModelAdmin):
     search_fields = ['discount_percent']
     list_editable = ['is_active', 'discount_percent']
     list_display_links = ['edit_btn']
+    actions = [make_diactive]
 
 
 @admin.register(BookCashCoupon)
@@ -40,6 +45,7 @@ class BookCashCouponAdmin(admin.ModelAdmin):
     search_fields = ['discount_price']
     list_editable = ['is_active', 'discount_price']
     list_display_links = ['edit_btn']
+    actions = [make_diactive]
 
 
 @admin.register(BookPercentCoupon)
@@ -59,3 +65,4 @@ class BookPercentCouponAdmin(admin.ModelAdmin):
     search_fields = ['discount_price']
     list_editable = ['is_active', 'discount_percent']
     list_display_links = ['edit_btn']
+    actions = [make_diactive]
