@@ -3,7 +3,7 @@ from django.utils.html import format_html
 from coupon.models import CartCoupon, BookCashCoupon, BookPercentCoupon
 
 
-@admin.action(description='Mark as active')
+@admin.action(description='غیر فعال کردن')
 def make_diactive(modeladmin, request, queryset):
     queryset.update(is_active=False)
 

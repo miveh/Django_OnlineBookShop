@@ -1,12 +1,12 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.views.generic import TemplateView
 from django.conf.urls.static import static
 from BOOK_STORE import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path(r'^jet/', include('jet.urls', 'jet')),
+    re_path(r'^jet/', include('jet.urls', 'jet')),
     path('accounts/', include('account.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),

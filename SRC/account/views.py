@@ -47,7 +47,7 @@ class UserEditView(UpdateView):
 
     form_class = CustomUserChangeForm
     template_name = 'profile/edit_profile.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('edit_profile')
 
     def get_object(self, queryset=None):
         """
