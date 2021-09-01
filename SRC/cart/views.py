@@ -112,6 +112,7 @@ class OrdersView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = 'book.add_book'
 
 
+@login_required()
 def add_to_cart(request, slug):
     """
     :param request: 😐

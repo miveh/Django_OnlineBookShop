@@ -13,7 +13,7 @@ class Category(models.Model):
         verbose_name = 'دسته بندی'
         verbose_name_plural = 'دسته بندی ها'
 
-    category = models.CharField(max_length=40, unique=True)
+    category = models.CharField(max_length=40, unique=True, verbose_name='دسته بندی')
     slug = models.SlugField(unique=True, blank=True)
 
     def save(self, *args, **kwargs):

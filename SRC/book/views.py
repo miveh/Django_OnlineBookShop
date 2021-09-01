@@ -53,7 +53,7 @@ class CategoryCreationView(LoginRequiredMixin, PermissionRequiredMixin, CreateVi
     form_class = CategoryCreationForm
     template_name = 'book/category_form.html'
     success_url = reverse_lazy('staff')
-    permission_required = 'book.add.category'
+    permission_required = 'book.add_category'
 
 
 class StoreroomView(LoginRequiredMixin, PermissionRequiredMixin, ListView):

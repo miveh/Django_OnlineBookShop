@@ -6,11 +6,15 @@
 {% endblock %}
 {% block title %}دسته بندی جدید{% endblock title %}
 {% block content %}
-    <h2>دسته بندی جدید</h2>
-    <form method="post" class="form-control col-md-auto">
-        {% csrf_token %}
-        {{ form|crispy}}
-        <button type="submit" class="btn">ایجاد</button>
-    </form>
+    <div class="container mt-5">
+        <div class="card card-body p-2 mt-4">
+            <h2 class="card card-header text-center">دسته بندی جدید</h2>
+            <form class="text-right" method="post" class="form-control col-md-auto">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-warning">ایجاد</button>
+            </form>
 
-{% endblock content%}
+        </div>
+    </div>
+{% endblock content %}
