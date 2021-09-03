@@ -314,7 +314,7 @@ def quantity_next_cart(request, slug):
                 cart_item.quantity -= 1
                 cart_item.save()
 
-    return redirect('cart')
+    return redirect('next_cart')
 
 
 @login_required()

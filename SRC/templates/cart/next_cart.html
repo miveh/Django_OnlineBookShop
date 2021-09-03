@@ -70,7 +70,7 @@
                                                     {% endif %}
                                                 </div>
                                             </div>
-                                            <form action="{% url 'quantity' item.book.slug %}" method="post">
+                                            <form action="{% url 'quantity_next_cart' item.book.slug %}" method="post">
                                                 {% csrf_token %}
                                                 <div class="pt-2 pt-sm-0 pl-sm-3 mx-auto mx-sm-0 text-center text-sm-left"
                                                      style="max-width: 10rem;">
