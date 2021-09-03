@@ -31,31 +31,46 @@
 
                                         </a>
                                     </h5>
-                                    {% if book.bookcashcoupon_set.all %}
-                                        <del class="price-container" style="color: darkgray">
-                                            <span>{{ book.price }}</span><span>هزارتومان</span>
-                                        </del>
-                                        <span class="tag1"></span>
-                                        <p class="price-container" >
-                                            <span>{{ book.total_price }}</span><span>هزارتومان</span>
-                                        </p>
-                                        <span class="tag1"></span>
-                                    {% elif book.bookcashcoupon_set.all %}
-                                        <del class="price-container" style="color: darkgray">
-                                            <span>{{ book.price }}</span><span>هزارتومان</span>
-                                        </del>
-                                        <span class="tag1"></span>
-                                        <p class="price-container" >
-                                            <span>{{ book.total_price }}</span><span>هزارتومان</span>
-                                        </p>
-                                        <span class="tag1"></span>
-                                    {% else %}
-                                        <p class="price-container">
-                                            <span>{{ book.price }}</span><span>هزارتومان</span>
-                                        </p>
-                                        <span class="tag1"></span>
-                                    {% endif %}
-
+{#                                    {% if book.bookcashcoupon_set.all %}#}
+{#                                        <del class="price-container" style="color: darkgray">#}
+{#                                            <span>{{ book.price }}</span><span>هزارتومان</span>#}
+{#                                        </del>#}
+{#                                        <span class="tag1"></span>#}
+{#                                        <p class="price-container" >#}
+{#                                            <span>{{ book.total_price }}</span><span>هزارتومان</span>#}
+{#                                        </p>#}
+{#                                        <span class="tag1"></span>#}
+{#                                    {% elif book.bookcashcoupon_set.all %}#}
+{#                                        <del class="price-container" style="color: darkgray">#}
+{#                                            <span>{{ book.price }}</span><span>هزارتومان</span>#}
+{#                                        </del>#}
+{#                                        <span class="tag1"></span>#}
+{#                                        <p class="price-container" >#}
+{#                                            <span>{{ book.total_price }}</span><span>هزارتومان</span>#}
+{#                                        </p>#}
+{#                                        <span class="tag1"></span>#}
+{#                                    {% else %}#}
+{#                                        <p class="price-container">#}
+{#                                            <span>{{ book.price }}</span><span>هزارتومان</span>#}
+{#                                        </p>#}
+{#                                        <span class="tag1"></span>#}
+{#                                    {% endif %}#}
+                                {% if book.no_change_price %}
+                                    <p class="price-container">
+                                        <span>{{ book.price }}</span><span>هزارتومان</span>
+                                    </p>
+                                    <span class="tag1"></span>
+                                {% elif not book.no_change_price %}
+                                    <del class="price-container"
+                                         style="color: darkgray">
+                                        <span>{{ book.price }}</span><span>هزارتومان</span>
+                                    </del>
+                                    <span class="tag1"></span>
+                                    <p class="price-container">
+                                        <span>{{ book.total_price }}</span><span>هزارتومان</span>
+                                    </p>
+                                    <span class="tag1"></span>
+                                {% endif %}
                                 </div>
                                 <br><br>
                                 <div class="product-info smart-form">

@@ -1,3 +1,4 @@
+import datetime
 import random
 from django.db import models
 from django.urls import reverse
@@ -87,11 +88,19 @@ class Book(models.Model):
 
         if cache_coupons_of_book_qs.exists():
             for cache_coupon in cache_coupons_of_book_qs:
-                total_cache_coupon += cache_coupon.discount_price
+                if cache_coupon.is_active:
+                    now = datetime.datetime.now()
+                    if (now > cache_coupon.valid_from.replace(tzinfo=None)) and (
+                            now < cache_coupon.valid_to.replace(tzinfo=None)):
+                        total_cache_coupon += cache_coupon.discount_price
 
         if percent_coupons_of_book_qs.exists():
             for percent_coupon in percent_coupons_of_book_qs:
-                total_percent_coupon += percent_coupon.discount_percent
+                if percent_coupon.is_active:
+                    now = datetime.datetime.now()
+                    if (now > percent_coupon.valid_from.replace(tzinfo=None)) and (
+                            now < percent_coupon.valid_to.replace(tzinfo=None)):
+                        total_percent_coupon += percent_coupon.discount_percent
 
         self.price = float(self.price)
         self.price = int(self.price)
@@ -101,6 +110,13 @@ class Book(models.Model):
 
     def __str__(self):
         return f'{self.name}'
+
+    def no_change_price(self):
+        if self.total_price == self.price:
+            no_change = True
+        else:
+            no_change = False
+        return no_change
 
     def get_absolute_url(self):
         return reverse('book_detail', kwargs={'slug': self.slug})
